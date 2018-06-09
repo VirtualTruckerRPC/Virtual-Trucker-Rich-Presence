@@ -1,0 +1,43 @@
+{
+	"name": "virtual-trucker-rich-presence",
+	"version": "2.5.0",
+	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
+	"main": "index.js",
+	"dependencies": {
+		"date-now": "^1.0.1",
+		"discord-rpc": "^3.0.0-beta.11",
+		"etcars-node-client": "^1.0.4",
+		"ip": "^1.1.5",
+		"node-fetch": "^2.1.2",
+		"node-notifier": "^5.2.1",
+		"npm": "^6.1.0",
+		"open": "0.0.5",
+		"update": "^0.7.4",
+		"yargs": "^11.0.0"
+	},
+	"devDependencies": {
+		"nexe": "^2.0.0-rc.29"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "node index.js --dev --clientConfiguration=\"./clientconfiguration.json\"",
+		"dev-verbose": "node index.js --dev --logetcarsdata --logallactivity --clientConfiguration=\"./clientconfiguration.json\"",
+		"prod": "node index.js --clientConfiguration=\"./clientconfiguration.json\"",
+		"compile": "node compile.js",
+		"release": "npm run compile && iscc .\\setup\\InnoSetupScript.iss"
+	},
+	"author": "VirtualTruckerRPC Team",
+	"contributors": [
+		"LasseNiermann",
+		"dowmeister",
+		"jammerxd",
+		"SgtBreadStick",
+		"Rein",
+		"Ollie"
+	],
+	"license": "MIT"
+}
