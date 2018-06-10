@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.50
+// VIRTUAL TRUCKER RICH PRESENCE 2.51
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -162,10 +162,10 @@ class RichPresenceManager {
             }
 
             if (typeof data.telemetry.job != 'undefined' && data.telemetry.job && data.telemetry.job.onJob === true) {
-                activity.details += `🚚 ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity}`;
+                activity.details += `🚚 ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity} at ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`;
                 activity.largeImageText = `🚚 ${data.telemetry.job.cargo} - Est. Income: ${this.getCurrency(data)} ${data.telemetry.job.income}`;
             } else {
-                activity.details += '🚛 Freeroaming';
+                activity.details += `🚛 Freeroaming at ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`;
             }
 
             activity.largeImageKey = this.getLargeImageKey(data);

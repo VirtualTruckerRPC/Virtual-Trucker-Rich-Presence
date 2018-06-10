@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.5.0 (2.50)
+## Version 2.5.1 (2.51) FINAL
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -24,7 +24,7 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 **Rich presence example on Multiplayer**
 
-![Rich presence example on Multiplayer](https://i.imgur.com/vFODnAX.png)
+![Rich presence example on Multiplayer](https://i.imgur.com/N94Emxt.png)
 
 On Multiplayer shows server connected and location on the map to the nearest city.
 

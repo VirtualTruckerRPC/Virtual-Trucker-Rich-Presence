@@ -1,6 +1,6 @@
 {
 	"name": "virtual-trucker-rich-presence",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
 	"main": "index.js",
 	"dependencies": {
