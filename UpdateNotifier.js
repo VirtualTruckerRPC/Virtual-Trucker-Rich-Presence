@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.51
+// VIRTUAL TRUCKER RICH PRESENCE 2.52
 
 var fetch = require('node-fetch');
 const notifier = require('node-notifier');
@@ -29,8 +29,9 @@ class UpdateNotifier {
                 instance.logger.info('Sending notification');
 
                 notifier.notify({
-                        title: 'Virtual Trucker Rich Presence update available',
-                        message: `Download new version ${response.tag_name}`,
+                        title: 'Virtual Trucker Rich Presence',
+                        message: `Update Available! Download Version: ${response.tag_name}`,
+                        icon: (__dirname, 'vtrpc.ico'),
                         sound: true, // Only Notification Center or Windows Toasters
                         wait: true, // Wait with callback, until user action is taken against notification,    
                         open: config.latestRelesePage                    

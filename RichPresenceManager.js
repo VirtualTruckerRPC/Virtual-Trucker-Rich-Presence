@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.51
+// VIRTUAL TRUCKER RICH PRESENCE 2.52
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -182,7 +182,7 @@ class RichPresenceManager {
             else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `⏳ Logging In To MP...`;
             } else {
-                activity.state = `🚛 Singleplayer`;
+                activity.state = `🌐 Singleplayer`;
             }
 
             if (argv.logallactivity) {
@@ -215,8 +215,6 @@ class RichPresenceManager {
         if (key == '') {
             if (data.telemetry.truck.lights.lowBeam === true) {
                 key = config.constants.largeImageKeys.night;
-            } else if (data.telemetry.truck.wipersOn === true) {
-                key = config.constants.largeImageKeys.rain;
             } else {
                 key = config.constants.largeImageKeys.day;
             }

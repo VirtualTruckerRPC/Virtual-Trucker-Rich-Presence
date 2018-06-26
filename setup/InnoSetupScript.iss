@@ -3,7 +3,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.5.1"
+#define MyAppVersion "2.5.2"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -49,13 +49,14 @@ Source: "..\vbs\RunHidden.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bat\RebootVTRPC.bat"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\SnoreToast\SnoreToast.exe"; DestDir: "{app}\vendor\SnoreToast\"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\notifu\*.*"; DestDir: "{app}\vendor\notifu\"; Flags: ignoreversion;
+Source: "..\assets\vtrpc.ico"; DestDir: "{app}"; Flags: ignoreversion;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}""";
 Name: "{commonstartup}\{#MyAppName}"; Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Tasks:StartMenuEntry;
 Name: "{group}\Reboot VT-RPC"; Filename: "{app}\{#RebootVTRPC}";
-Name: {group}\Uninstall; Filename: {uninstallexe};
+Name: "{group}\Uninstall VT-RPC"; Filename: "{uninstallexe}";
 
 [Tasks]
 Name: "StartMenuEntry" ; Description: "Start {#MyAppName} when Windows starts (Recommended)" ; GroupDescription: "Windows Startup"; MinVersion: 4,4;

@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.51
+// VIRTUAL TRUCKER RICH PRESENCE 2.52
 
 const packageInfo = require('./package.json');
 
@@ -24,10 +24,9 @@ module.exports = {
         ets2LargeImagePrefix: 'ets2rpc_',
         atsLargeImagePrefix: 'atsrpc_',
         largeImageKeys: {
-            idle: 'idle_2',
-            day: 'day_2',
-            night: 'night_2',
-            rain: 'rain_2'
+            idle: 'idle_3',
+            day: 'day_3',
+            night: 'night_3',
         },
         currencies: {
             euros: '€',
