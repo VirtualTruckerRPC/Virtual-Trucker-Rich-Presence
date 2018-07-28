@@ -1,13 +1,13 @@
 <div>
-    <img src="https://i.imgur.com/0KzG450.png" width="500px" />
+    <img src="https://i.imgur.com/0wSXSgW.png" width="500px" />
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.5.2 (2.52)
+## Version 2.5.3 (2.53)
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
-Here's our Discord server for support: https://discord.gg/UwSJjSA  
+Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
 In different weather or time, your image will change on the rich presence.  
 It will change when your turn your lights on/off or wipers on/off.  
@@ -26,7 +26,7 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 ![Rich presence example on Multiplayer](https://i.imgur.com/N94Emxt.png)
 
-On Multiplayer shows server connected and location on the map to the nearest city.
+On Multiplayer shows server connectedy.
 
 **Rich presence example for ATS**
 
@@ -49,12 +49,11 @@ REQUIRED PROGRAMS:
 * Git - https://git-scm.com  
 
 1. Install and download the required programs.   
-3. Open cmd/powershell by holding shift while right clicking inside the VT-RP directory.  
+3. Open cmd/powershell by holding shift while right clicking inside the VT-RPC directory.  
 4. Install the required node modules by typing "npm i" in PS/CMD.  
 5. Start the rich presence by typing "node index.js".  
 6. Start ETS2.  
-7. Now make sure to select the correct "game" in Discords Game Settings. In this case you should try to find the "game" called "node".  
-8. Select that and start playing!  
+7. Select that and start playing!  
 
 ## Prepare for distribution
 
@@ -118,11 +117,11 @@ Log file `vtrpc.log` is written in:
 
 # Credits To Staff
 ### Current Staff
-Rein: Images & several text improvements.   
-SgtBreadStick: Coding, text improvements, backgrounds, Logos.  
-Josh Menzel: ETCARS plugin, compatibility with ETCARS, future updates.  
 dowmeister: ETCARS plugin, coding.  
-Ollie: Website Developer, Logos.  
+SgtBreadStick: Coding, Images, Website Developer.  
+Josh Menzel: ETCARS plugin, compatibility with ETCARS.  
+Rein: Images.  
+Ollie: Website Developer.  
 Heyhococo: Testing, Mac Testing.
 
 ### Retired Staff

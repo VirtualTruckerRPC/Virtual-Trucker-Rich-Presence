@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.52
+// VIRTUAL TRUCKER RICH PRESENCE 2.53
 
 const {
   compile
@@ -8,7 +8,7 @@ if (process.argv[0] == '--ico') {
   compile({
     input: './index.js',
     build: true, //required to use patches
-    icon: './assets/vtrpc.ico',
+    icon: 'assets/vtrpc.ico',
     name: 'release/VirtualTruckerRichPresence'
   }).then(() => {
     console.log('success')

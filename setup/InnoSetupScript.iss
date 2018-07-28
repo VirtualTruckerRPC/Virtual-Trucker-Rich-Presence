@@ -3,7 +3,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.5.2"
+#define MyAppVersion "2.5.3"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -18,7 +18,7 @@
 AppId={{29075F67-AFC2-4622-AE1B-7D965BC53408}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -37,7 +37,7 @@ Name: full;    Description: "Full installation";
 Name: custom;    Description: "Update installation"; Flags: iscustom
 
 [Components]
-Name: app; Description: "Virtual Trucker Rich Presence"; Types: full custom; Flags: fixed
+Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full custom; Flags: fixed
 Name: etcars; Description: "ETCARS 0.15 (required)"; Types: full;
 
 [Languages]
@@ -53,15 +53,14 @@ Source: "..\assets\vtrpc.ico"; DestDir: "{app}"; Flags: ignoreversion;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}""";
 Name: "{commonstartup}\{#MyAppName}"; Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Tasks:StartMenuEntry;
-Name: "{group}\Reboot VT-RPC"; Filename: "{app}\{#RebootVTRPC}";
+Name: "{group}\Start or Reboot VT-RPC"; Filename: "{app}\{#RebootVTRPC}";
 Name: "{group}\Uninstall VT-RPC"; Filename: "{uninstallexe}";
 
 [Tasks]
 Name: "StartMenuEntry" ; Description: "Start {#MyAppName} when Windows starts (Recommended)" ; GroupDescription: "Windows Startup"; MinVersion: 4,4;
 Name: "InstallETCARS"; Description: "Install ETCARS after installation"; GroupDescription: "Other Tasks"; Components: etcars;
-Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance units"; GroupDescription: "Configuration"; Flags: unchecked 
+Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance units on ETS2"; GroupDescription: "Configuration"; Flags: unchecked 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
@@ -105,11 +104,11 @@ procedure PerformAfterInstallActions();
 
     if IsTaskSelected('SpeedUnitConfigurationMPH') then
     begin
-        SaveStringToFile(clientConfFile, '{ "configuration": { "distanceUnit": "m", "customMessage": "" } }', True);
+        SaveStringToFile(clientConfFile, '{ "configuration": { "distanceUnit": "m" } }', True);
     end
     else
     begin
-        SaveStringToFile(clientConfFile, '{ "configuration": { "distanceUnit": "km", "customMessage": "" } }', True);
+        SaveStringToFile(clientConfFile, '{ "configuration": { "distanceUnit": "km" } }', True);
     end;
   end;
 

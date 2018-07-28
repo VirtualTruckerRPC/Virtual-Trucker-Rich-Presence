@@ -1,24 +1,23 @@
 {
 	"name": "virtual-trucker-rich-presence",
-	"version": "2.5.2",
+	"version": "2.5.3",
 	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
 	"main": "index.js",
 	"dependencies": {
 		"date-now": "^1.0.1",
-		"discord-rpc": "^3.0.0-beta.11",
+		"discord-rpc": "^3.0.0",
 		"etcars-node-client": "^1.0.4",
 		"ip": "^1.1.5",
-		"node-fetch": "^2.1.2",
+		"nexe": "^2.0.0-rc.31",
+		"node-fetch": "^2.2.0",
 		"node-notifier": "^5.2.1",
-		"npm": "^6.1.0",
+		"npm": "^6.3.0-next.0",
 		"open": "0.0.5",
 		"update": "^0.7.4",
-		"uws": "^10.148.1",
-		"yargs": "^11.0.0"
+		"uws": "^10.148.2",
+		"yargs": "^11.1.0"
 	},
-	"devDependencies": {
-		"nexe": "^2.0.0-rc.30"
-	},
+	"devDependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence.git"

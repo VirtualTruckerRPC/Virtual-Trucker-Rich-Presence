@@ -70,35 +70,16 @@ And outside, view from another user:
 
 # Customize your Rich Presence
 
-Virtual Trucker Rich Presence comes with a client configuration file called clientconfiguration.json, a json file containing few configuration variables
+Virtual Trucker Rich Presence comes with a client configuration file called clientconfiguration.json, a json file containing configuration variables
 
 ```json
 {
     "configuration": {
         "distanceUnit": "km",
-        "customMessage": ""
     }
 }
 ```
 * distanceUnit : possibile values are `km` for Kilometres and `m` for Miles. It's already configured by the installer.
-* customMessage : it's a special feature that allows you to customize your Rich Presence message by showing what you want. Take a look at the example below
-
-With this configuration
-
-```json
-{
-    "configuration": {
-        "distanceUnit": "km",
-        "customMessage": "Driving like a PRO!"
-    }
-}
-```
-
-You will obtain this:
-
-![Custom message example](https://imgur.com/fxChiVt.png)
-
-You can write your VTC name or whatever you want to display in your Rich Presence.
 
 # Run VTRPC manually
 
@@ -137,7 +118,7 @@ You can also check the console in ETS2 or ATS for ETCARS messages
 2018-04-30T12:49:36.359Z - INFO - Platform: win32
 2018-04-30T12:49:36.359Z - INFO - Startup parameters:
 2018-04-30T12:49:36.359Z - INFO - {"_":[],"help":false,"version":false,"clientConfiguration":"C:\\Program Files (x86)\\Virtual Trucker Rich Presence\\clientconfiguration.json","$0":"C:\\Program Files (x86)\\Virtual Trucker Rich Presence\\VirtualTruckerRichPresence.exe E:\\Progetti\\etcars\\Virtual-Trucker-Rich-Presence\\index.js"}
-2018-04-30T12:49:36.431Z - INFO - {"configuration":{"distanceUnit":"km","customMessage":""}}
+2018-04-30T12:49:36.431Z - INFO - {"configuration":{"distanceUnit":"km"}}
 2018-04-30T12:49:36.431Z - INFO - Client configuration:
 2018-04-30T16:18:04.144Z - INFO - Connected to ETCARS
 2018-04-30T16:18:04.387Z - INFO - Game detected: ETS2
