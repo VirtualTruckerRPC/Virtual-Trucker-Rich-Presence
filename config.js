@@ -25,9 +25,9 @@ module.exports = {
         ets2LargeImagePrefix: 'ets2rpc_',
         atsLargeImagePrefix: 'atsrpc_',
         largeImageKeys: {
-            idle: 'idle_3',
-            day: 'day_3',
-            night: 'night_3',
+            idle: 'idle',
+            day: 'day',
+            night: 'night',
         },
         currencies: {
             euros: '€',

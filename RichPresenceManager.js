@@ -31,7 +31,7 @@ class RichPresenceManager {
 
         if (argv.dev) {
             this.mpCheckerIntervalTime = 1 * 60 * 1000; // 1 minute
-            this.locationCheckerIntervalTime = 0.5 * 30 * 500; // 1 minute
+            this.locationCheckerIntervalTime = 0.5 * 30 * 1000; // 1 minute
         }
 
         this.mpInfo = null;
@@ -98,7 +98,7 @@ class RichPresenceManager {
                             });
 
                             // login to RPC
-                            instance.rpc.login(applicationID).then(() => {
+                            instance.rpc.login({clientId: applicationID }).then(() => {
                                 instance.logger.info('Discord RPC ready');
                                 // cleaning up variables to save RPC Client state
                                 instance.rpcReady = true;
@@ -159,9 +159,10 @@ class RichPresenceManager {
 
             if (config.supportedBrands.includes(data.telemetry.truck.makeID.toLowerCase())) {
                 activity.smallImageKey = `${config.constants.brandPrefix}${data.telemetry.truck.makeID}`;
-            } else
+            } else {
                 activity.smallImageKey = config.constants.brandGenericKey;
-
+            }
+            
             activity.details = '';
             activity.state = '';
 
@@ -180,13 +181,17 @@ class RichPresenceManager {
                 activity.state += util.format(' | ID %s', this.mpInfo.id);
             } 
             else if (data.telemetry.game.isMultiplayer == true) {
-                activity.state = `⏳ Connecting to MP`;
+                activity.state = `🌐 Multiplayer`;
             } else {
                 activity.state = `🌐 Singleplayer`;
             }
             
-            if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
-                activity.state += util.format(' | Near %s', this.locationInfo.location);
+            if(data.telemetry.game.paused == true) {
+                    activity.state += util.format(' | Paused');
+            } else {
+                if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
+                    activity.state += util.format(' | Near %s', this.locationInfo.location);
+                }
             }
 
             if (argv.logallactivity) {
