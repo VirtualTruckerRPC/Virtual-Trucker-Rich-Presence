@@ -1,5 +1,5 @@
 <div>
-    <img src="https://i.imgur.com/0wSXSgW.png" width="500px" />
+    <img src="https://i.imgur.com/0wSXSgW.png" width="100%" />
 </div>
 
 # Virtual Trucker Rich Presence on Discord
@@ -13,24 +13,18 @@ In different weather or time, your image will change on the rich presence.
 It will change when your turn your lights on/off or wipers on/off.  
 ETCARS 0.15  is required for the RPC to work.  
 
-**TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!**
-**Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer, uncheck it if you have problems during installation and download seperately!**
+**TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!**  
+**Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer, uncheck it if you have problems during installation and download seperately!**  
 
-Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.
+Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
 
 **Rich presence example on Single Player**
 
-![Rich presence example on Single Player](https://i.imgur.com/3K03uix.png)
+![Rich presence example on Single Player](https://i.imgur.com/xePeEJq.png)
 
 **Rich presence example on Multiplayer**
 
-![Rich presence example on Multiplayer](https://i.imgur.com/N94Emxt.png)
-
-On Multiplayer shows server connectedy.
-
-**Rich presence example for ATS**
-
-![Rich presence example on Single Player](https://imgur.com/bQlN1M2.png)
+![Rich presence example on Multiplayer](https://i.imgur.com/37eKWyv.png)
 
 ## Use in end user environment
 
@@ -55,19 +49,9 @@ REQUIRED PROGRAMS:
 6. Start ETS2.  
 7. Select that and start playing!  
 
-## Prepare for distribution
-
-**Without custom icon**
-
-* Run `node compile.js` .
-* Bundled exe will be written in `release` directory.
-
-**With custom icon**
-
-* Install Python 2.7 to `c:\Python27` - https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
-* Set environment variable `PYTHON` to `c:\Python27\`
-* Run `node compile.js --ico` . Nexe will download node.js sources and compile it, first time will take a while. It's necessary to compile node from sources to set custom icon via nexe.
-* Bundled exe will be written in `release` directory.
+## Preparing for distribution
+Unfortunately nexe is having issues so we cannot use a default method of compiling an EXE.  
+You can use your own method but we recommend nexe if possible. Thanks  
 
 ## Create installation package
 
@@ -76,25 +60,6 @@ REQUIRED PROGRAMS:
 * Open `setup\InnoSetup.iss` with InnoSetup and compile it
 * Run `iscc .\setup\InnoSetupScript.iss` (Add to PATH variable env `C:\Program Files (x86)\Inno Setup 5`)
 * Installation package will be written in `setup\Output\VirtualTruckerRichPresenceSetup.exe`
-
-### Why there is a VBScript in this project?
-
-We need `RunHidden.vbs` to run a packaged node.js app windowless in windows. So, the application is launched from that vbscript.
-
-## Logging
-
-Log file `vtrpc.log` is written in:
-
-* Windows: `%appdata%\VirtualTruckingRichPresence\`
-* Linux: `/var/local/VirtualTruckingRichPresence/`
-* MacOS: `/home/Library/Preferences/VirtualTruckingRichPresence/`
-
-## Startup parameters
-
-* --dev : enable verbose development logging and dev environment behaviour
-* --logetcarsdata : prints in console every ETCARS data received
-* --logallactivity : prints in console every activity sent to Discord
-* --clientConfiguration : specify clientconfiguration.json path
 
 ### Why there is a VBScript in this project?
 
