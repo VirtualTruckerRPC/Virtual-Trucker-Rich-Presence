@@ -9,7 +9,7 @@ module.exports = {
     },
     version: `Virtual Trucker Rich Presence ${packageInfo.version}`,
     kmToMilesConversion: 0.62,
-    mpCheckerIntervalMilliseconds: 3 * 60 * 1000,
+    mpCheckerIntervalMilliseconds: 1 * 60 * 1000,
     locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
     kphString: 'km/h',
     mphString: 'mph',

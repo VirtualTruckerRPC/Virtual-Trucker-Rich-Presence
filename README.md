@@ -49,9 +49,19 @@ REQUIRED PROGRAMS:
 6. Start ETS2.  
 7. Select that and start playing!  
 
-## Preparing for distribution
-Unfortunately nexe is having issues so we cannot use a default method of compiling an EXE.  
-You can use your own method but we recommend nexe if possible. Thanks  
+## Prepare for distribution
+
+**Without custom icon**
+
+* Run `npm run compile` .
+* Bundled exe will be written in `release` directory.
+
+**With custom icon**
+
+* Install Python 2.7 to `c:\Python27` - https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
+* Set environment variable `PYTHON` to `c:\Python27\`
+* Run `npm run compile --ico` . Nexe will download node.js sources and compile it, first time will take a while. It's necessary to compile node from sources to set custom icon via nexe.
+* Bundled exe will be written in `release` directory. 
 
 ## Create installation package
 
