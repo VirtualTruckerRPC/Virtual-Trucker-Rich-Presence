@@ -3,18 +3,21 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.5.3 (2.53)
+## Version 2.6.0 (2.60)
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
-In different weather or time, your image will change on the rich presence.  
-It will change when your turn your lights on/off or wipers on/off.  
-ETCARS 0.15  is required for the RPC to work.  
+Your image will change on the rich presence depending if your lights are on.  
+ETCARS 0.15  is required for the RPC to work, older versions will not work.  
 
-**TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!**  
-**Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer, uncheck it if you have problems during installation and download seperately!**  
+## Things to note!
+
+* Before installing VT-RPC 2.6, uninstall VT-RPC 2.5 first to prevent issues!
+* TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!
+* Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer.
+* Promods isn't supported currently but there are future plans for supporting it.
 
 Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
 
@@ -92,8 +95,8 @@ Log file `vtrpc.log` is written in:
 
 # Credits To Staff
 ### Current Staff
-dowmeister: ETCARS plugin, coding.  
-SgtBreadStick: Coding, Images, Website Developer.  
+dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
+SgtBreadStick: Coding, Images, Website Developer, Breaking Things.  
 Josh Menzel: ETCARS plugin, compatibility with ETCARS.  
 Rein: Images.  
 Ollie: Website Developer.  

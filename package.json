@@ -1,6 +1,6 @@
 {
 	"name": "virtual-trucker-rich-presence",
-	"version": "2.5.3",
+	"version": "2.6.0",
 	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
 	"main": "index.js",
 	"dependencies": {
@@ -32,12 +32,10 @@
 	},
 	"author": "VirtualTruckerRPC Team",
 	"contributors": [
-		"LasseNiermann",
 		"dowmeister",
 		"jammerxd",
 		"SgtBreadStick",
-		"Rein",
-		"Ollie"
+		"Rein"
 	],
 	"license": "MIT"
 }

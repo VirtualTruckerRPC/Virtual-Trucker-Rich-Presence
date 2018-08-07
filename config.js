@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.53
+// VIRTUAL TRUCKER RICH PRESENCE 2.60
 
 const packageInfo = require('./package.json');
 
@@ -9,7 +9,7 @@ module.exports = {
     },
     version: `Virtual Trucker Rich Presence ${packageInfo.version}`,
     kmToMilesConversion: 0.62,
-    mpCheckerIntervalMilliseconds: 1 * 60 * 1000,
+    mpCheckerIntervalMilliseconds: 2 * 60 * 1000,
     locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
     kphString: 'km/h',
     mphString: 'mph',
@@ -52,5 +52,5 @@ module.exports = {
         'volvo'
     ],
     latestReleaseAPIUrl: 'https://api.github.com/repos/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest',
-    latestRelesePage: 'https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest'
+    latestReleasePage: 'https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest'
 }

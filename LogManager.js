@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.53
+// VIRTUAL TRUCKER RICH PRESENCE 2.60
 
 const path = require('path');
 const fs = require('fs');
@@ -72,10 +72,10 @@ module.exports = class LogManager {
 
     error(exception) {
         var stream = this.openFile();
-        //stream.write(this.logLine('ERROR', exception.message));
-        //this.closeFile(stream);
-        //var stream = this.openFile();
-        //console.log('STACK TRACE: ' + exception.stack);
+        stream.write(this.logLine('ERROR', exception.message));
+        this.closeFile(stream);
+        var stream = this.openFile();
+        console.log('STACK TRACE: ' + exception.stack);
         stream.write(this.logLine('ERROR', exception.stack || exception));
         this.closeFile(stream);
         this.logToConsole(exception);

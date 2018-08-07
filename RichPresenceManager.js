@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.53
+// VIRTUAL TRUCKER RICH PRESENCE 2.60
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -26,7 +26,7 @@ class RichPresenceManager {
 
         // setting initial variables state
         this.rpc = null;
-        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds; // 3 minute
+        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds; // 2 minute
         this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds; // 1 minute
 
         if (argv.dev) {
@@ -130,7 +130,7 @@ class RichPresenceManager {
 
         this.etcars.on('connect', function (data) {
             instance.logger.info('Connected to ETCARS');
-            updateChecker.checkUpdates();
+            //updateChecker.checkUpdates();
         });
 
         this.etcars.on('error', function (data) {
@@ -171,6 +171,7 @@ class RichPresenceManager {
                 activity.largeImageText = `🚚 ${data.telemetry.job.cargo} - Est. Income: ${this.getCurrency(data)} ${data.telemetry.job.income}`;
             } else {
                 activity.details += `🚛 Freeroaming at ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`;
+                activity.largeImageText = `VT-RPC v2.6.0`;
             }
 
             activity.largeImageKey = this.getLargeImageKey(data);
@@ -186,12 +187,8 @@ class RichPresenceManager {
                 activity.state = `🌐 Singleplayer`;
             }
             
-            if(data.telemetry.game.paused == true) {
-                    activity.state += util.format(' | Paused');
-            } else {
-                if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
-                    activity.state += util.format(' | Near %s', this.locationInfo.location);
-                }
+            if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
+                activity.state += util.format(' | Near %s', this.locationInfo.location);
             }
 
             if (argv.logallactivity) {
@@ -372,14 +369,14 @@ class RichPresenceManager {
             });
         }
     }
-
         checkLocationInfo() {
-
             var instance = this;
     
+            if (this.lastData.telemetry.game.gameID == "ats") {
+                //ATS
                 this.logger.debug('Checking location');
     
-                var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
+                var url = util.format('https://api.truckyapp.com/v2/map/ats/resolve?x=%s&y=%s', this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
 
                 //console.log(url);
                 fetch(url).then((body) => {
@@ -397,6 +394,29 @@ class RichPresenceManager {
                         };
                     }
                 });
+            } else {  
+                //ETS2  
+                this.logger.debug('Checking location');
+            
+                var url = util.format('https://api.truckyapp.com/v2/map/ets2/resolve?x=%s&y=%s', this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
+        
+                //console.log(url);
+                fetch(url).then((body) => {
+                    return body.json()
+                }).then((json) => {
+            
+                    if (!json.error) {
+                        var response = json.response;
+                            instance.locationInfo = {
+                                location: response.poi.realName,
+                            };
+                    } else {
+                        instance.locationInfo = {
+                            location: false,
+                        };
+                    }
+                });
+            }
         }
 }
 

@@ -3,7 +3,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.5.3"
+#define MyAppVersion "2.6.0"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -25,7 +25,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-AllowNoIcons=yes
+AllowNoIcons=yes                                                                                                           
 OutputBaseFilename=VirtualTruckerRichPresenceSetup
 SetupIconFile=..\assets\vtrpc.ico
 Compression=lzma
@@ -33,8 +33,8 @@ SolidCompression=yes
 AppMutex={#MyAppExeName}
 
 [Types]
-Name: full;    Description: "Full installation";
-Name: custom;    Description: "Update installation"; Flags: iscustom
+Name: full; Description: "Full installation";
+Name: custom; Description: "Update installation"; Flags: iscustom
 
 [Components]
 Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full custom; Flags: fixed
@@ -49,7 +49,8 @@ Source: "..\vbs\RunHidden.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bat\RebootVTRPC.bat"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\SnoreToast\SnoreToast.exe"; DestDir: "{app}\vendor\SnoreToast\"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\notifu\*.*"; DestDir: "{app}\vendor\notifu\"; Flags: ignoreversion;
-Source: "..\assets\vtrpc.ico"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "..\assets\vtrpc.ico"; DestDir: "{app}\assets"; Flags: ignoreversion;
+Source: "..\setup\ETCARSx64.exe"; DestDir: "{tmp}"; Flags: ignoreversion;    
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -64,30 +65,12 @@ Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
-Filename: "{tmp}\etcars.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
+Filename: "{tmp}\ETCARSx64.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im {#MyAppExeName} /f /t";
 
 [Code]
-procedure InitializeWizard;
-begin
-    idpDownloadAfter(wpReady);
-end;
-
-procedure CurPageChanged(CurPageID: Integer);
-begin
-    if CurPageID = wpReady then
-    begin
-        // User can navigate to 'Ready to install' page several times, so we 
-        // need to clear file list to ensure that only needed files are added.
-        idpClearFiles;
-
-        if IsComponentSelected('etcars') then
-            idpAddFile('https://myalpha.menzelstudios.com/downloads/ETCARSx64.exe', ExpandConstant('{tmp}\etcars.exe'));
-  end;
-end;
-
 procedure PerformAfterInstallActions();
   var 
       clientConfFile : string;
