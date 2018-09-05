@@ -371,51 +371,31 @@ class RichPresenceManager {
     }
         checkLocationInfo() {
             var instance = this;
-    
-            if (this.lastData.telemetry.game.gameID == "ats") {
-                //ATS
-                this.logger.debug('Checking location');
-    
-                var url = util.format('https://api.truckyapp.com/v2/map/ats/resolve?x=%s&y=%s', this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
-
-                //console.log(url);
-                fetch(url).then((body) => {
-                    return body.json()
-                }).then((json) => {
-    
-                    if (!json.error) {
-                        var response = json.response;
-                            instance.locationInfo = {
-                                location: response.poi.realName,
-                            };
-                    } else {
-                        instance.locationInfo = {
-                            location: false,
-                        };
-                    }
-                });
-            } else {  
-                //ETS2  
-                this.logger.debug('Checking location');
+            if (this.lastData.status == "TELEMETRY") { 
+                    this.logger.debug('Checking location');
+                
+                    var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
             
-                var url = util.format('https://api.truckyapp.com/v2/map/ets2/resolve?x=%s&y=%s', this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
-        
-                //console.log(url);
-                fetch(url).then((body) => {
-                    return body.json()
-                }).then((json) => {
-            
-                    if (!json.error) {
-                        var response = json.response;
+                    //console.log(url);
+                    fetch(url).then((body) => {
+                        return body.json()
+                    }).then((json) => {
+                
+                        if (!json.error) {
+                            var response = json.response;
+                                instance.locationInfo = {
+                                    location: response.poi.realName,
+                                };
+                        } else {
                             instance.locationInfo = {
-                                location: response.poi.realName,
+                                location: false,
                             };
-                    } else {
-                        instance.locationInfo = {
-                            location: false,
-                        };
-                    }
-                });
+                        }
+                    });
+            } else {
+                instance.locationInfo = {
+                    location: false,
+                };
             }
         }
 }

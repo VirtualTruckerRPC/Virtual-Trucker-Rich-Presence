@@ -49,7 +49,8 @@ module.exports = {
         'renault',
         'scania',
         'skoda',
-        'volvo'
+        'volvo',
+        'tesla'
     ],
     latestReleaseAPIUrl: 'https://api.github.com/repos/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest',
     latestReleasePage: 'https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest'
