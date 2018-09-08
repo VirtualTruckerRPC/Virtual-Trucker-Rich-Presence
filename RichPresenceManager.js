@@ -371,7 +371,12 @@ class RichPresenceManager {
     }
         checkLocationInfo() {
             var instance = this;
-            if (this.lastData.status == "TELEMETRY") { 
+            if (this.lastData.status == "TELEMETRY") {
+                if(this.lastData.telemetry.truck.worldPlacement.x == "0") { 
+                    instance.locationInfo = {
+                        location: false,
+                    };
+                } else {
                     this.logger.debug('Checking location');
                 
                     var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
@@ -392,6 +397,7 @@ class RichPresenceManager {
                             };
                         }
                     });
+                }
             } else {
                 instance.locationInfo = {
                     location: false,
