@@ -7,7 +7,7 @@
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
-Here's our Discord server for support: https://discord.gg/UwSJjSA  
+Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
 In different weather or time, your image will change on the rich presence.  
 It will change when your turn your lights on/off or wipers on/off.  
