@@ -130,7 +130,7 @@ class RichPresenceManager {
 
         this.etcars.on('connect', function (data) {
             instance.logger.info('Connected to ETCARS');
-            //updateChecker.checkUpdates();
+            updateChecker.checkUpdates();
         });
 
         this.etcars.on('error', function (data) {

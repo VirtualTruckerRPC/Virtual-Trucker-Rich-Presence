@@ -11,11 +11,10 @@ Here's our Discord server for support: https://discord.gg/Zt49WDH
 
 Your image will change on the rich presence depending if your lights are on.  
 ETCARS 0.16  is required for the RPC to work, older versions will not work.  
-THIS VERSION INCLUDES ETCARS 0.16, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
+THIS VERSION INCLUDES ETCARS 0.15, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
 
 ## Things to note!
 
-* Before installing VT-RPC 2.6, uninstall VT-RPC 2.5 first to prevent issues!
 * TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!
 * Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer.
 * Promods isn't supported currently but there are future plans for supporting it.
@@ -29,6 +28,23 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 **Rich presence example on Multiplayer**
 
 ![Rich presence example on Multiplayer](https://i.imgur.com/37eKWyv.png)
+
+## Changelog
+ - Removed Rain Image
+ - Updated Images
+ - Changed Singleplayer Status Text
+ - ATS Images Now Added!
+ - Updated NPM Packages
+ - Added Icon to Update Notifier
+ - Added VT-RPC Icon to install directory
+ - Location detection is now on SP and more reliable!
+ - Removed Custom Message (No room for it on rpc)
+ - New images once again!
+ - Fixed a few bugs
+ - README has had duplicated text removed
+ - New logo added
+ - When there's no MP connection but you're on MP it will now just say Multiplayer instead of connecting.
+ - Fixed random crashes.
 
 ## Use in end user environment
 
