@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.52
+// VIRTUAL TRUCKER RICH PRESENCE 2.60
 
 const packageInfo = require('./package.json');
 
@@ -9,7 +9,8 @@ module.exports = {
     },
     version: `Virtual Trucker Rich Presence ${packageInfo.version}`,
     kmToMilesConversion: 0.62,
-    mpCheckerIntervalMilliseconds: 3 * 60 * 1000,
+    mpCheckerIntervalMilliseconds: 2 * 60 * 1000,
+    locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
     kphString: 'km/h',
     mphString: 'mph',
     kmString: 'km',
@@ -24,9 +25,9 @@ module.exports = {
         ets2LargeImagePrefix: 'ets2rpc_',
         atsLargeImagePrefix: 'atsrpc_',
         largeImageKeys: {
-            idle: 'idle_3',
-            day: 'day_3',
-            night: 'night_3',
+            idle: 'idle',
+            day: 'day',
+            night: 'night',
         },
         currencies: {
             euros: '€',
@@ -48,8 +49,9 @@ module.exports = {
         'renault',
         'scania',
         'skoda',
-        'volvo'
+        'volvo',
+        'tesla'
     ],
     latestReleaseAPIUrl: 'https://api.github.com/repos/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest',
-    latestRelesePage: 'https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest'
+    latestReleasePage: 'https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases/latest'
 }
