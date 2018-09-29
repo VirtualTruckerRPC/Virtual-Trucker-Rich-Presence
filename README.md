@@ -58,7 +58,7 @@ But here is the most important information:
 
 REQUIRED PROGRAMS:  
 
-* ETCARS 0.16 - https://etcarsdev.menzelstudios.com/  
+* ETCARS 0.15 - https://etcarsdev.menzelstudios.com/  
 * Node.js - https://nodejs.org.  
 * Git - https://git-scm.com  
 
@@ -99,9 +99,9 @@ We need `RunHidden.vbs` to run a packaged node.js app windowless in windows. So,
 
 Log file `vtrpc.log` is written in:
 
-* Windows: `%appdata%\VirtualTruckingRichPresence\`
-* Linux: `/var/local/VirtualTruckingRichPresence/`
-* MacOS: `/home/Library/Preferences/VirtualTruckingRichPresence/`
+* Windows: `%appdata%\VirtualTruckerRichPresence\`
+* Linux: `/var/local/VirtualTruckerRichPresence/`
+* MacOS: `/home/Library/Preferences/VirtualTruckerRichPresence/`
 
 ## Startup parameters
 
@@ -113,10 +113,9 @@ Log file `vtrpc.log` is written in:
 # Credits To Staff
 ### Current Staff
 dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
-SgtBreadStick: Coding, Images, Website Developer, Breaking Things.  
+SgtBreadStick: Coding, Images, Website Developer.  
 Josh Menzel: ETCARS plugin, compatibility with ETCARS.  
 Rein: Images.  
-Ollie: Website Developer.  
 Heyhococo: Testing, Mac Testing.
 
 ### Retired Staff
