@@ -10,7 +10,7 @@ An easy tool to let others see your current job, truck, etc. using Discord Rich 
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
 Your image will change on the rich presence depending if your lights are on.  
-ETCARS 0.16  is required for the RPC to work, older versions will not work.  
+ETCARS 0.15  is required for the RPC to work, older versions will not work.  
 THIS VERSION INCLUDES ETCARS 0.15, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
 
 ## Things to note!
