@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.6.0 (2.60)
+## Version 2.6.1 (2.61)
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -30,21 +30,9 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.imgur.com/37eKWyv.png)
 
 ## Changelog
- - Removed Rain Image
- - Updated Images
- - Changed Singleplayer Status Text
- - ATS Images Now Added!
- - Updated NPM Packages
- - Added Icon to Update Notifier
- - Added VT-RPC Icon to install directory
- - Location detection is now on SP and more reliable!
- - Removed Custom Message (No room for it on rpc)
- - New images once again!
- - Fixed a few bugs
- - README has had duplicated text removed
- - New logo added
- - When there's no MP connection but you're on MP it will now just say Multiplayer instead of connecting.
- - Fixed random crashes.
+ - Updated Node Packs and NPM
+ - Removed Server Player ID and added server users and max slots
+ - Removed leftover code
 
 ## Use in end user environment
 

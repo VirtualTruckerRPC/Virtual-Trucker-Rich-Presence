@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.60
+// VIRTUAL TRUCKER RICH PRESENCE 2.61
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -176,10 +176,10 @@ class RichPresenceManager {
 
             activity.largeImageKey = this.getLargeImageKey(data);
 
-            if (this.mpInfo != null && this.mpInfo.online && this.mpInfo.server && this.mpInfo.id) {
+            if (this.mpInfo != null && this.mpInfo.online && this.mpInfo.server && this.mpInfo.serverUS && this.mpInfo.serverMAX) {
 
                 activity.state += util.format('🌐 %s', this.mpInfo.server.name);
-                activity.state += util.format(' | ID %s', this.mpInfo.id);
+                activity.state += util.format(' | %s/%s', this.mpInfo.serverUS, this.mpInfo.serverMAX);
             } 
             else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 Multiplayer`;
@@ -356,7 +356,6 @@ class RichPresenceManager {
                         instance.mpInfo = {
                             online: true,
                             server: response.onlineState.serverDetails,
-                            id : response.onlineState.p_id,
                         };
                     } else {
                         instance.mpInfo = {
@@ -366,6 +365,23 @@ class RichPresenceManager {
                 } else {
                     instance.mpInfo = null;
                 }
+            });
+
+            var url2 = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', instance.mpInfo.server.apiserverid);
+
+            //console.log(url);
+            fetch(url2).then((body) => {
+                return body.json()
+            }).then((json) => {
+
+                if (!json.error) {
+                    var response = json.response;
+
+                        instance.mpInfo = {
+                            serverUS: response.servers.players,
+                            serverMAX: response.servers.maxplayers,
+                    };
+                };
             });
         }
     }

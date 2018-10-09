@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.60
+// VIRTUAL TRUCKER RICH PRESENCE 2.61
 
 const LogManager = require('./LogManager');
 const logger = new LogManager(); 

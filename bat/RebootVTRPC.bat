@@ -1,2 +1,2 @@
-taskkill -im VirtualTruckerRichPresence.exe /f /t
+taskkill -im VirtualTruckerRichPresence.exe -f -t
 RunHidden.vbs
