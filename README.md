@@ -10,7 +10,7 @@ An easy tool to let others see your current job, truck, etc. using Discord Rich 
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
 Your image will change on the rich presence depending if your lights are on.  
-ETCARS 0.16  is required for the RPC to work, older versions will not work.  
+ETCARS 0.15  is required for the RPC to work, older versions will not work.  
 THIS VERSION INCLUDES ETCARS 0.15, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
 
 ## Things to note!
@@ -23,16 +23,22 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 **Rich presence example on Single Player**
 
-![Rich presence example on Single Player](https://i.imgur.com/xePeEJq.png)
+![Rich presence example on Single Player](https://i.imgur.com/SWMBaXf.png)
 
 **Rich presence example on Multiplayer**
 
-![Rich presence example on Multiplayer](https://i.imgur.com/37eKWyv.png)
+![Rich presence example on Multiplayer](https://i.imgur.com/l5xNkvS.png)
 
 ## Changelog
  - Updated Node Packs and NPM
  - Removed Server Player ID and added server users and max slots
  - Removed leftover code
+ - Removed NPM Package "Open" due to security vulnerability 
+ - Added linqjs for NPM
+ - Changed layout (see images above for what it now looks like)
+ - Logging has been improved
+ - Special Transport compatability
+ - Near & In City detection!
 
 ## Use in end user environment
 
@@ -46,7 +52,7 @@ But here is the most important information:
 
 REQUIRED PROGRAMS:  
 
-* ETCARS 0.16 - https://etcarsdev.menzelstudios.com/  
+* ETCARS 0.15 - https://etcarsdev.menzelstudios.com/  
 * Node.js - https://nodejs.org.  
 * Git - https://git-scm.com  
 
@@ -87,9 +93,9 @@ We need `RunHidden.vbs` to run a packaged node.js app windowless in windows. So,
 
 Log file `vtrpc.log` is written in:
 
-* Windows: `%appdata%\VirtualTruckingRichPresence\`
-* Linux: `/var/local/VirtualTruckingRichPresence/`
-* MacOS: `/home/Library/Preferences/VirtualTruckingRichPresence/`
+* Windows: `%appdata%\VirtualTruckerRichPresence\`
+* Linux: `/var/local/VirtualTruckerRichPresence/`
+* MacOS: `/home/Library/Preferences/VirtualTruckerRichPresence/`
 
 ## Startup parameters
 
@@ -102,10 +108,9 @@ Log file `vtrpc.log` is written in:
 ### Current Staff
 dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
 SgtBreadStick: Coding, Images, Website Developer, Breaking Things.  
-Josh Menzel: ETCARS plugin, compatibility with ETCARS.  
-Rein: Images.  
-Ollie: Website Developer.  
+Josh Menzel (kirito): ETCARS plugin, compatibility with ETCARS.  
 Heyhococo: Testing, Mac Testing.
 
 ### Retired Staff
 Lasse: Initial project, coding. 
+Rein: Images.

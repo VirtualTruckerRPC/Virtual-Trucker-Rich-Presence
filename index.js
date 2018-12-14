@@ -18,7 +18,7 @@ var presenceManager = new RichPresenceManager();
 presenceManager.init();
 
 var updateChecker = new UpdateNotifier();
-updateChecker.checkUpdates();
+//updateChecker.checkUpdates();
 
 // maintain node process running
 process.stdin.resume();

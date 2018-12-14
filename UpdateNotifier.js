@@ -33,7 +33,7 @@ class UpdateNotifier {
                         message: `Update Available! Version: ${response.tag_name}`,
                         icon: (__dirname, 'assets/vtrpc.ico'),
                         sound: true, // Only Notification Center or Windows Toasters
-                        wait: false, // Wait with callback, until user action is taken against notification,    
+                        wait: true, // Wait with callback, until user action is taken against notification,    
                         open: config.latestReleasePage,
                         appId: 'Virtual Trucker Rich Presence',                     
                     },

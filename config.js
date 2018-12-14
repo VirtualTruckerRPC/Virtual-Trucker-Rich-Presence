@@ -13,8 +13,8 @@ module.exports = {
     locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
     kphString: 'km/h',
     mphString: 'mph',
-    kmString: 'km',
-    milesString: 'miles',
+    kmString: 'KM',
+    milesString: 'Mi',
     constants: {
         km: 'km',
         miles: 'm',

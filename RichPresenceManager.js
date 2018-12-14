@@ -13,7 +13,8 @@ const argv = require('yargs').argv
 const clientConfiguration = require(argv.clientConfiguration ? argv.clientConfiguration : './clientconfiguration.json');
 const UpdateNotifier = require('./UpdateNotifier');
 var child_process = require('child_process');
-var updateChecker = new UpdateNotifier();
+//var updateChecker = new UpdateNotifier();
+require('linqjs');
 
 class RichPresenceManager {
     constructor() {
@@ -30,8 +31,8 @@ class RichPresenceManager {
         this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds; // 1 minute
 
         if (argv.dev) {
-            this.mpCheckerIntervalTime = 0.5 * 60 * 1000; // 1 minute
-            this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 1 minute
+            this.mpCheckerIntervalTime = 2 * 60 * 1000; // 2 minutes
+            this.locationCheckerIntervalTime = 0.2 * 60 * 1000; // 10 seconds
         }
 
         this.mpInfo = null;
@@ -130,7 +131,7 @@ class RichPresenceManager {
 
         this.etcars.on('connect', function (data) {
             instance.logger.info('Connected to ETCARS');
-            updateChecker.checkUpdates();
+            //updateChecker.checkUpdates();
         });
 
         this.etcars.on('error', function (data) {
@@ -167,28 +168,50 @@ class RichPresenceManager {
             activity.state = '';
 
             if (typeof data.telemetry.job != 'undefined' && data.telemetry.job && data.telemetry.job.onJob === true) {
-                activity.details += `🚚 ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity} at ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`;
-                activity.largeImageText = `🚚 ${data.telemetry.job.cargo} - Est. Income: ${this.getCurrency(data)} ${data.telemetry.job.income}`;
+                if (data.telemetry.job.sourceCity != null){
+                    activity.details += `🚚 Delivering From ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity}`;
+                } else {
+                    activity.details += `🚧 Delivering Special Transport`
+                }
+                activity.largeImageText = `Est. Income: ${this.getCurrency(data)} ${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
             } else {
-                activity.details += `🚛 Freeroaming at ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`;
-                activity.largeImageText = `VT-RPC v2.6.0`;
+                if (data.telemetry.truck.make == false) {
+                    activity.details += `⌛ Loading game...`
+                } else {
+                    activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
+                }
+                activity.largeImageText = `VT-RPC v2.6.1`;
             }
 
             activity.largeImageKey = this.getLargeImageKey(data);
 
-            if (this.mpInfo != null && this.mpInfo.online && this.mpInfo.server && this.mpInfo.serverUS && this.mpInfo.serverMAX) {
-
+            if (this.mpInfo != null && this.mpInfo.online && this.mpInfo.server) {
+                //&& this.mpInfo.serverUS && this.mpInfo.serverMAX
                 activity.state += util.format('🌐 %s', this.mpInfo.server.name);
-                activity.state += util.format(' | %s/%s', this.mpInfo.serverUS, this.mpInfo.serverMAX);
-            } 
-            else if (data.telemetry.game.isMultiplayer == true) {
+                //activity.state += util.format(' %s/%s', this.mpInfo.serverUS, this.mpInfo.serverMAX);
+            } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 Multiplayer`;
             } else {
                 activity.state = `🌐 Singleplayer`;
             }
-            
-            if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
-                activity.state += util.format(' | Near %s', this.locationInfo.location);
+
+            if (this.locationInfo != null && this.locationInfo.inCity == true) {
+                this.inCityDetection = 'In';
+            } else if (this.locationInfo != null && this.locationInfo.inCity == false) {
+                this.inCityDetection = 'Near';
+            } else {
+                this.inCityDetection = null;
+            }
+
+
+
+            if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
+                activity.state += util.format(' | %s %s', this.inCityDetection, this.locationInfo.location);
+            }
+
+            if (data.telemetry.truck.make == false) {}
+            else {
+                activity.state += util.format(` | ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`);
             }
 
             if (argv.logallactivity) {
@@ -341,7 +364,7 @@ class RichPresenceManager {
 
         if (this.lastData != null && this.checkIfMultiplayer(this.lastData)) {
 
-            this.logger.debug('Checking online state');
+            this.logger.info('Checking online status');
 
             var url = util.format('https://api.truckyapp.com/v1/richpresence/playerInfo?query=%s', this.lastData.telemetry.user.steamID);
 
@@ -367,22 +390,22 @@ class RichPresenceManager {
                 }
             });
 
-            var url2 = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', instance.mpInfo.server.apiserverid);
+            //var url2 = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', instance.mpInfo.server.apiserverid);
 
             //console.log(url);
-            fetch(url2).then((body) => {
-                return body.json()
-            }).then((json) => {
-
-                if (!json.error) {
-                    var response = json.response;
-
-                        instance.mpInfo = {
-                            serverUS: response.servers.players,
-                            serverMAX: response.servers.maxplayers,
-                    };
-                };
-            });
+            //fetch(url2).then((body) => {
+            //    return body.json()
+            //}).then((json) => {
+            //
+            //    if (!json.error) {
+            //        var response = json.response;
+            //
+            //            instance.mpInfo = {
+            //                serverUS: response.servers.players,
+            //                serverMAX: response.servers.maxplayers,
+            //        };
+            //    };
+            //});
         }
     }
         checkLocationInfo() {
@@ -391,13 +414,14 @@ class RichPresenceManager {
                 if(this.lastData.telemetry.truck.worldPlacement.x == "0") { 
                     instance.locationInfo = {
                         location: false,
+                        inCity: null,
                     };
                 } else {
-                    this.logger.debug('Checking location');
+                    this.logger.info('Checking location');
                 
                     var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
             
-                    //console.log(url);
+                    console.log(url);
                     fetch(url).then((body) => {
                         return body.json()
                     }).then((json) => {
@@ -406,10 +430,12 @@ class RichPresenceManager {
                             var response = json.response;
                                 instance.locationInfo = {
                                     location: response.poi.realName,
+                                    inCity: response.area,
                                 };
                         } else {
                             instance.locationInfo = {
                                 location: false,
+                                inCity: null,
                             };
                         }
                     });
@@ -417,6 +443,7 @@ class RichPresenceManager {
             } else {
                 instance.locationInfo = {
                     location: false,
+                    inCity: null,
                 };
             }
         }
