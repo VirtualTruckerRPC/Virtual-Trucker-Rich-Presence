@@ -33,7 +33,6 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
  - Updated Node Packs and NPM
  - Removed Server Player ID and added server users and max slots
  - Removed leftover code
- - Removed NPM Package "Open" due to security vulnerability 
  - Added linqjs for NPM
  - Changed layout (see images above for what it now looks like)
  - Logging has been improved

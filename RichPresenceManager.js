@@ -27,12 +27,14 @@ class RichPresenceManager {
 
         // setting initial variables state
         this.rpc = null;
-        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds; // 2 minute
+        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds; // 2 minutes
         this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds; // 1 minute
+        this.mpStatsCheckerIntervalTime = config.mpStatsCheckerIntervalMilliseconds; // 5 minutes
 
         if (argv.dev) {
             this.mpCheckerIntervalTime = 2 * 60 * 1000; // 2 minutes
-            this.locationCheckerIntervalTime = 0.2 * 60 * 1000; // 10 seconds
+            this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
+            this.mpStatsCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
         }
 
         this.mpInfo = null;
@@ -40,6 +42,7 @@ class RichPresenceManager {
         this.rpcReady = false;
         this.rpcOnChangingState = false;
         this.mpCheckerInterval = null;
+        this.mpStatsCheckerInterval = null;
         this.locationCheckerInterval = null;
         this.locationInfo = null;
 
@@ -49,7 +52,6 @@ class RichPresenceManager {
 
     init() {
         this.bindETCarsEvents();
-
         this.etcars.connect();
     }
 
@@ -115,6 +117,7 @@ class RichPresenceManager {
                             instance.logger.info('Multiplayer detected');
                             instance.checkMpInfo();
                             instance.startMPChecker();
+                            instance.startMPStatsChecker();
                         }
 
                         var activity = instance.buildActivity(data);
@@ -136,11 +139,9 @@ class RichPresenceManager {
 
         this.etcars.on('error', function (data) {
             instance.resetETCarsData();
-
             instance.destroyRPCClient();
-
             instance.resetMPChecker();
-
+            instance.resetMPStatsChecker();
             instance.resetLocationChecker();
         });
     }
@@ -185,10 +186,9 @@ class RichPresenceManager {
 
             activity.largeImageKey = this.getLargeImageKey(data);
 
-            if (this.mpInfo != null && this.mpInfo.online && this.mpInfo.server) {
-                //&& this.mpInfo.serverUS && this.mpInfo.serverMAX
-                activity.state += util.format('🌐 %s', this.mpInfo.server.name);
-                //activity.state += util.format(' %s/%s', this.mpInfo.serverUS, this.mpInfo.serverMAX);
+            if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online && this.mpInfo.server) {
+                activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
+                activity.state += util.format(' %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 Multiplayer`;
             } else {
@@ -202,8 +202,6 @@ class RichPresenceManager {
             } else {
                 this.inCityDetection = null;
             }
-
-
 
             if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
                 activity.state += util.format(' | %s %s', this.inCityDetection, this.locationInfo.location);
@@ -309,6 +307,17 @@ class RichPresenceManager {
             this.logger.info('Starting MP Checker interval');
         }
     }
+
+    startMPStatsChecker() {
+        if (this.mpStatsCheckerInterval == null) {
+            var instance = this;
+            this.mpStatsCheckerInterval = setInterval(() => {
+                instance.checkMpStatsInfo()
+            }, this.mpStatsCheckerIntervalTime);
+            this.logger.info('Starting MP Stats Checker interval');
+        }
+    }
+
     startLocationChecker() {
         if (this.locationCheckerInterval == null) {
             var instance = this;
@@ -332,6 +341,16 @@ class RichPresenceManager {
             this.logger.info('MP Checker interval reset');
         }
     }
+
+    resetMPStatsChecker() {
+        if (this.mpStatsCheckerInterval != null) {
+            clearInterval(this.mpStatsCheckerInterval);
+            this.mpStatsCheckerInterval = null;
+            this.mpStatsInfo = null;
+            this.logger.info('MP Stats Checker interval reset');
+        }
+    }
+
     resetLocationChecker() {
         if (this.locationCheckerInterval != null) {
             clearInterval(this.locationCheckerInterval);
@@ -379,6 +398,7 @@ class RichPresenceManager {
                         instance.mpInfo = {
                             online: true,
                             server: response.onlineState.serverDetails,
+                            apiserverid: response.onlineState.serverDetails.apiserverid,
                         };
                     } else {
                         instance.mpInfo = {
@@ -389,64 +409,77 @@ class RichPresenceManager {
                     instance.mpInfo = null;
                 }
             });
-
-            //var url2 = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', instance.mpInfo.server.apiserverid);
-
-            //console.log(url);
-            //fetch(url2).then((body) => {
-            //    return body.json()
-            //}).then((json) => {
-            //
-            //    if (!json.error) {
-            //        var response = json.response;
-            //
-            //            instance.mpInfo = {
-            //                serverUS: response.servers.players,
-            //                serverMAX: response.servers.maxplayers,
-            //        };
-            //    };
-            //});
         }
     }
-        checkLocationInfo() {
-            var instance = this;
-            if (this.lastData.status == "TELEMETRY") {
-                if(this.lastData.telemetry.truck.worldPlacement.x == "0") { 
-                    instance.locationInfo = {
-                        location: false,
-                        inCity: null,
+
+    checkMpStatsInfo() {
+
+        var instance = this;
+
+        if (this.lastData != null && this.checkIfMultiplayer(this.lastData) && this.mpInfo != null) {
+
+            this.logger.info('Checking server stats');
+
+            var url = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', this.mpInfo.apiserverid);
+
+            //console.log(url);
+            fetch(url).then((body) => {
+                return body.json()
+            }).then((json) => {
+            
+                if (!json.error) {
+                    var response = json.response;
+            
+                        instance.mpStatsInfo = {
+                            serverUS: response.servers.players,
+                            serverMAX: response.servers.maxplayers,
                     };
                 } else {
-                    this.logger.info('Checking location');
-                
-                    var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
-            
-                    console.log(url);
-                    fetch(url).then((body) => {
-                        return body.json()
-                    }).then((json) => {
-                
-                        if (!json.error) {
-                            var response = json.response;
-                                instance.locationInfo = {
-                                    location: response.poi.realName,
-                                    inCity: response.area,
-                                };
-                        } else {
-                            instance.locationInfo = {
-                                location: false,
-                                inCity: null,
-                            };
-                        }
-                    });
+                    instance.mpStatsInfo = null;
                 }
-            } else {
+            });
+        }
+    }
+
+    checkLocationInfo() {
+        var instance = this;
+        if (this.lastData.status == "TELEMETRY") {
+            if(this.lastData.telemetry.truck.worldPlacement.x == "0") { 
                 instance.locationInfo = {
                     location: false,
                     inCity: null,
                 };
+            } else {
+                this.logger.info('Checking location');
+            
+                var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
+        
+                //console.log(url);
+                fetch(url).then((body) => {
+                    return body.json()
+                }).then((json) => {
+            
+                    if (!json.error) {
+                        var response = json.response;
+                            instance.locationInfo = {
+                                location: response.poi.realName,
+                                inCity: response.area,
+                            };
+                    } else {
+                        instance.locationInfo = {
+                            location: false,
+                            inCity: null,
+                        };
+                    }
+                });
             }
+        } else {
+            instance.locationInfo = {
+                location: false,
+                inCity: null,
+            };
         }
+    }
 }
 
 module.exports = RichPresenceManager;
