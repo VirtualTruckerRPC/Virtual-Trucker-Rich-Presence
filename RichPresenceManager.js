@@ -183,13 +183,17 @@ class RichPresenceManager {
                 activity.largeImageText = `VT-RPC v2.7.0`;
             }
 
+            if (data.telemetry.truck.make != false) {
+                activity.details += util.format(` | ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`);
+            }
+
             activity.largeImageKey = this.getLargeImageKey(data);
 
             if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online && this.mpInfo.server) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
                 activity.state += util.format(' %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
             } else if (data.telemetry.game.isMultiplayer == true) {
-                activity.state = `🌐 Multiplayer`;
+                activity.state = `🌐 TruckersMP`;
             } else {
                 activity.state = `🌐 Singleplayer`;
             }
@@ -204,11 +208,6 @@ class RichPresenceManager {
 
             if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
                 activity.state += util.format(' | %s %s', this.inCityDetection, this.locationInfo.location);
-            }
-
-            if (data.telemetry.truck.make == false) {}
-            else {
-                activity.state += util.format(` | ${this.calculateSpeed(speed, this.isAts(data))} ${this.getSpeedUnit(this.isAts(data))}`);
             }
 
             if (argv.logallactivity) {
@@ -415,11 +414,11 @@ class RichPresenceManager {
 
         var instance = this;
 
-        if (this.lastData != null && this.checkIfMultiplayer(this.lastData) && this.mpInfo != null) {
+        if (this.lastData != null && this.checkIfMultiplayer(this.lastData)) {
 
             this.logger.info('Checking server stats');
 
-            var url = util.format('https://api.truckyapp.com/v2/truckersmp/servers?query=%s', this.mpInfo.apiserverid);
+            var url = util.format('https://api.truckyapp.com/v2/truckersmp/servers');
 
             //console.log(url);
             fetch(url).then((body) => {
