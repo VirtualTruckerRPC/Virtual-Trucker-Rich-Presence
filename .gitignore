@@ -63,3 +63,9 @@ typings/
 # VTRPC release directory
 release
 output
+
+# VTRPC VSCode Workspace
+VT-RPC.code-workspace
+
+# Package-Lock JSON
+package-lock.json

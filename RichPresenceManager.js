@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.61
+// VIRTUAL TRUCKER RICH PRESENCE 2.70
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -14,7 +14,6 @@ const clientConfiguration = require(argv.clientConfiguration ? argv.clientConfig
 const UpdateNotifier = require('./UpdateNotifier');
 var child_process = require('child_process');
 //var updateChecker = new UpdateNotifier();
-require('linqjs');
 
 class RichPresenceManager {
     constructor() {
@@ -181,7 +180,7 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.6.1`;
+                activity.largeImageText = `VT-RPC v2.7.0`;
             }
 
             activity.largeImageKey = this.getLargeImageKey(data);
