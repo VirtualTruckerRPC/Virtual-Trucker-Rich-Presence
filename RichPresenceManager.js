@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.70
+// VIRTUAL TRUCKER RICH PRESENCE 2.71
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -180,7 +180,7 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.7.0`;
+                activity.largeImageText = `VT-RPC v2.7.1`;
             }
 
             if (data.telemetry.truck.make != false) {

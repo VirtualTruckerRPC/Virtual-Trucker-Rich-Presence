@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.7.0"
+#define MyAppVersion "2.7.1"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -10,7 +10,7 @@
 #define RebootVTRPC "RebootVTRPC.bat"
 
 [Setup]
-AppId={{29075F67-AFC2-4622-AE1B-7D965BC53408}
+AppId={{29075F67-AFC2-4622-AE1B-7D965BC53408}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -19,7 +19,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 AppMutex={#MyAppExeName}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={pf64}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=no                                                                                                           
 OutputBaseFilename=VirtualTruckerRichPresenceSetup
@@ -38,8 +38,8 @@ ArchitecturesAllowed=x64 ia64
 InternalCompressLevel=ultra64
 CompressionThreads=2
 WizardImageStretch=False
-WizardImageFile=E:\Things\VT-RPC 2\assets\vtrpc-banner.bmp
-WizardSmallImageFile=E:\Things\VT-RPC 2\assets\vtrpc.bmp
+WizardImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc-banner.bmp
+WizardSmallImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc.bmp
 DisableWelcomePage=False
 
 [Types]
@@ -48,7 +48,7 @@ Name: custom; Description: "Update installation"; Flags: iscustom
 
 [Components]
 Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full custom; Flags: fixed
-Name: etcars; Description: "ETCARS 0.15.386 (required)"; Types: full;
+Name: etcars; Description: "ETCARS 0.15.386 (required)"; Types: full; Flags: fixed
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -74,7 +74,7 @@ Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
-Filename: "{tmp}\ETCARSx64.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
+Filename: "{localappdata}\Temp\ETCARSx64.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im {#MyAppExeName} /f /t";
@@ -94,7 +94,9 @@ begin
         idpClearFiles;
 
         if IsComponentSelected('etcars') then
-            idpAddFile('https://etcars.menzelstudios.com/downloads/ETCARSx64.exe', ExpandConstant('{tmp}\etcars.exe'));
+            idpAddFile('https://etcars.menzelstudios.com/downloads/ETCARSx64.exe', ExpandConstant('{localappdata}\Temp\ETCARSx64.exe'));
+
+        idpDownloadAfter(wpReady);
   end;
 end;
 
