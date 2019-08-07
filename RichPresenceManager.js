@@ -31,9 +31,9 @@ class RichPresenceManager {
         this.mpStatsCheckerIntervalTime = config.mpStatsCheckerIntervalMilliseconds; // 5 minutes
 
         if (argv.dev) {
-            this.mpCheckerIntervalTime = 2 * 60 * 1000; // 2 minutes
-            this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
-            this.mpStatsCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
+            this.mpCheckerIntervalTime = 1 * 60 * 1000; // 1 minute
+            this.locationCheckerIntervalTime = 1 * 60 * 1000; // 60 seconds
+            this.mpStatsCheckerIntervalTime = 1 * 60 * 1000; // 60 seconds
         }
 
         this.mpInfo = null;
@@ -191,7 +191,7 @@ class RichPresenceManager {
 
             if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online && this.mpInfo.server) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
-                activity.state += util.format(' %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
+                activity.state += util.format(' | %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 TruckersMP`;
             } else {
@@ -391,18 +391,23 @@ class RichPresenceManager {
             }).then((json) => {
 
                 if (!json.error) {
-                    var response = json.response;
-                    if (response.onlineState.online) {
-                        instance.mpInfo = {
-                            online: true,
-                            server: response.onlineState.serverDetails,
-                            apiserverid: response.onlineState.serverDetails.apiserverid,
+                    try {
+                        var response = json.response;
+                        if (response.onlineState.online) {
+                            instance.mpInfo = {
+                                online: true,
+                                server: response.onlineState.serverDetails,
+                                apiserverid: response.onlineState.serverDetails.apiserverid,
+                            };
+                        } else {
+                            instance.mpInfo = {
+                                online: false
+                            }
                         };
-                    } else {
-                        instance.mpInfo = {
-                            online: false
-                        }
-                    };
+                    }
+                    catch (error) {
+                        instance.logger.error(error);
+                    }
                 } else {
                     instance.mpInfo = null;
                 }
@@ -414,7 +419,7 @@ class RichPresenceManager {
 
         var instance = this;
 
-        if (this.lastData != null && this.checkIfMultiplayer(this.lastData)) {
+        if (this.lastData != null && this.checkIfMultiplayer(this.lastData) && this.mpInfo.apiserverid != null) {
 
             this.logger.info('Checking server stats');
 
@@ -426,12 +431,17 @@ class RichPresenceManager {
             }).then((json) => {
             
                 if (!json.error) {
-                    var response = json.response;
-            
+                    try {
+                        var server = json.response.servers.find(s => s.id == this.mpInfo.apiserverid);
+
                         instance.mpStatsInfo = {
-                            serverUS: response.servers.players,
-                            serverMAX: response.servers.maxplayers,
-                    };
+                            serverUS: server.players,
+                            serverMAX: server.maxplayers,
+                        };
+                    }
+                    catch (error) {
+                        instance.logger.error(error);
+                    }
                 } else {
                     instance.mpStatsInfo = null;
                 }

@@ -28,7 +28,7 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 **Rich presence example on Multiplayer**
 
-![Rich presence example on Multiplayer](https://i.imgur.com/l5xNkvS.png)
+![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)
 
 ## Changelog
  - Updated Node Packs and NPM
@@ -55,7 +55,7 @@ But here is the most important information:
 
 REQUIRED PROGRAMS:  
 
-* ETCARS 0.15.386 - https://etcarsdev.menzelstudios.com/  
+* ETCARS 0.15.386 - https://etcars.menzelstudios.com/  
 * Node.js - https://nodejs.org.  
 * Git - https://git-scm.com  
 
