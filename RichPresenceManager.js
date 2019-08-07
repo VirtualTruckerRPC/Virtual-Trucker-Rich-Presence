@@ -197,6 +197,10 @@ class RichPresenceManager {
             } else {
                 activity.state = `🌐 Singleplayer`;
             }
+            
+            if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
+                activity.state += util.format(' | Near %s', this.locationInfo.location);
+            }
 
             if (this.locationInfo != null && this.locationInfo.inCity == true) {
                 this.inCityDetection = 'In';
@@ -305,6 +309,15 @@ class RichPresenceManager {
             this.logger.info('Starting MP Checker interval');
         }
     }
+    startLocationChecker() {
+        if (this.locationCheckerInterval == null) {
+            var instance = this;
+            this.locationCheckerInterval = setInterval(() => {
+                instance.checkLocationInfo()
+            }, this.locationCheckerIntervalTime);
+            this.logger.info('Starting Location Checker interval');
+        }
+    }
 
     startMPStatsChecker() {
         if (this.mpStatsCheckerInterval == null) {
@@ -337,6 +350,14 @@ class RichPresenceManager {
             this.mpCheckerInterval = null;
             this.mpInfo = null;
             this.logger.info('MP Checker interval reset');
+        }
+    }
+    resetLocationChecker() {
+        if (this.locationCheckerInterval != null) {
+            clearInterval(this.locationCheckerInterval);
+            this.locationCheckerInterval = null;
+            this.locationInfo = null;
+            this.logger.info('Location Checker interval reset');
         }
     }
 

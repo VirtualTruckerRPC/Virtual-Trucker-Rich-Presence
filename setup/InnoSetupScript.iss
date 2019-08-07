@@ -74,7 +74,7 @@ Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
-Filename: "{tmp}\etcars.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
+Filename: "{tmp}\ETCARSx64.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im {#MyAppExeName} /f /t";
