@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.7.0
+## Version 2.7.1
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
