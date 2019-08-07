@@ -3,48 +3,45 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.6.0 (2.60)
+## Version 2.7.0
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
 Your image will change on the rich presence depending if your lights are on.  
-ETCARS 0.15  is required for the RPC to work, older versions will not work.  
-THIS VERSION INCLUDES ETCARS 0.15, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
+ETCARS 0.15.386 is required for the RPC to work, older versions will not work.  
+THIS VERSION INCLUDES ETCARS 0.15.386, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
 
 ## Things to note!
 
 * TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!
-* Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15 from our installer.
+* Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15.386 from our installer.
 * Promods isn't supported currently but there are future plans for supporting it.
+* IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
 
 Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
 
 **Rich presence example on Single Player**
 
-![Rich presence example on Single Player](https://i.imgur.com/xePeEJq.png)
+![Rich presence example on Single Player](https://i.imgur.com/SWMBaXf.png)
 
 **Rich presence example on Multiplayer**
 
-![Rich presence example on Multiplayer](https://i.imgur.com/37eKWyv.png)
+![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)
 
 ## Changelog
- - Removed Rain Image
- - Updated Images
- - Changed Singleplayer Status Text
- - ATS Images Now Added!
- - Updated NPM Packages
- - Added Icon to Update Notifier
- - Added VT-RPC Icon to install directory
- - Location detection is now on SP and more reliable!
- - Removed Custom Message (No room for it on rpc)
- - New images once again!
- - Fixed a few bugs
- - README has had duplicated text removed
- - New logo added
- - When there's no MP connection but you're on MP it will now just say Multiplayer instead of connecting.
- - Fixed random crashes.
+ - Updated Node Packs and NPM
+ - Removed Server Player ID and added server users and max slots
+ - Removed leftover code
+ - Changed layout (see images above for what it now looks like)
+ - Logging has been improved
+ - Special Transport compatability
+ - Near & In City detection!
+ - Updated included ETCars 0.15.386 (prev. 0.15)
+ - ETCars is now installed from web once again.
+ - Revamped installer!
+
 
 ## Use in end user environment
 
@@ -58,15 +55,15 @@ But here is the most important information:
 
 REQUIRED PROGRAMS:  
 
-* ETCARS 0.15 - https://etcarsdev.menzelstudios.com/  
+* ETCARS 0.15.386 - https://etcars.menzelstudios.com/  
 * Node.js - https://nodejs.org.  
 * Git - https://git-scm.com  
 
 1. Install and download the required programs.   
 3. Open cmd/powershell by holding shift while right clicking inside the VT-RPC directory.  
 4. Install the required node modules by typing "npm i" in PS/CMD.  
-5. Start the rich presence by typing "node index.js".  
-6. Start ETS2.  
+5. Start the rich presence by typing "node index.js --dev". (--dev not required but recommended)  
+6. Start ETS2/ATS.  
 7. Select that and start playing!  
 
 ## Prepare for distribution
@@ -75,13 +72,6 @@ REQUIRED PROGRAMS:
 
 * Run `npm run compile` .
 * Bundled exe will be written in `release` directory.
-
-**With custom icon**
-
-* Install Python 2.7 to `c:\Python27` - https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
-* Set environment variable `PYTHON` to `c:\Python27\`
-* Run `npm run compile --ico` . Nexe will download node.js sources and compile it, first time will take a while. It's necessary to compile node from sources to set custom icon via nexe.
-* Bundled exe will be written in `release` directory. 
 
 ## Create installation package
 
@@ -114,9 +104,10 @@ Log file `vtrpc.log` is written in:
 ### Current Staff
 dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
 SgtBreadStick: Coding, Images, Website Developer.  
-Josh Menzel: ETCARS plugin, compatibility with ETCARS.  
-Rein: Images.  
-Heyhococo: Testing, Mac Testing.
+Josh Menzel (kirito): ETCARS plugin, compatibility with ETCARS.  
+Heyhococo: Testing, Mac Testing.  
+Minion_Josh: Testing.
 
 ### Retired Staff
 Lasse: Initial project, coding. 
+Rein: Images.

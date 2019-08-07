@@ -1,21 +1,23 @@
 {
 	"name": "virtual-trucker-rich-presence",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
 	"main": "index.js",
 	"dependencies": {
+		"1.0.1": "^1.0.0",
+		"assign-deep": "^1.0.1",
 		"date-now": "^1.0.1",
-		"discord-rpc": "^3.0.0",
+		"discord-rpc": "^3.0.2",
 		"etcars-node-client": "^1.0.4",
 		"ip": "^1.1.5",
-		"nexe": "^2.0.0-rc.34",
-		"node-fetch": "^2.2.0",
-		"node-notifier": "^5.2.1",
-		"npm": "^6.4.1",
-		"open": "0.0.5",
+		"nexe": "^3.3.2",
+		"node-fetch": "^2.6.0",
+		"node-notifier": "^5.4.1",
+		"npm": "^6.10.3",
+		"open": "6.2.0",
+		"uWebSockets.js": "github:uNetworking/uWebSockets.js#v15.10.0",
 		"update": "^0.7.4",
-		"uws": "^10.148.2",
-		"yargs": "^11.1.0"
+		"yargs": "^13.3.0"
 	},
 	"devDependencies": {},
 	"repository": {
@@ -34,8 +36,7 @@
 	"contributors": [
 		"dowmeister",
 		"jammerxd",
-		"SgtBreadStick",
-		"Rein"
+		"SgtBreadStick"
 	],
 	"license": "MIT"
 }
