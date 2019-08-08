@@ -24,7 +24,7 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=no                                                                                                           
 OutputBaseFilename=VirtualTruckerRichPresenceSetup
 SetupIconFile=..\assets\vtrpc.ico
-Compression=lzma/ultra64
+Compression=lzma2/ultra64
 SolidCompression=yes
 PrivilegesRequired=admin
 DirExistsWarning=no
@@ -45,10 +45,11 @@ AlwaysShowComponentsList=yes
 
 [Types]
 Name: full; Description: "Full installation";
+Name: update; Description: "Update installation";
 
 [Components]
-Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full; Flags: fixed disablenouninstallwarning
-Name: etcars; Description: "ETCARS 0.15.386 (required)"; Types: full; Flags: fixed disablenouninstallwarning
+Name: app; Description: "Virtual Trucker Rich Presence v{#MyAppVersion}"; Types: full update; Flags: fixed disablenouninstallwarning
+Name: etcars; Description: "ETCARS 0.15.386 (Required)"; Types: full; Flags: disablenouninstallwarning
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -56,9 +57,6 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [InstallDelete]
 Type: filesandordirs; Name: "{pf64}\{#MyAppName}"
 Type: filesandordirs; Name: "{pf}\{#MyAppName}"
-Type: filesandordirs; Name: "{pf64}\ETCARS"
-Type: filesandordirs; Name: "{pf}\ETCARS"
-
 
 [Files]
 Source: "..\release\VirtualTruckerRichPresence.exe"; DestDir: "{app}"; Flags: ignoreversion;
@@ -66,7 +64,7 @@ Source: "..\vbs\RunHidden.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bat\RebootVTRPC.bat"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\SnoreToast\SnoreToast.exe"; DestDir: "{app}\vendor\SnoreToast\"; Flags: ignoreversion;
 Source: "..\node_modules\node-notifier\vendor\notifu\*.*"; DestDir: "{app}\vendor\notifu\"; Flags: ignoreversion;
-Source: "..\assets\vtrpc.ico"; DestDir: "{app}\assets"; Flags: ignoreversion;    
+Source: "..\assets\vtrpc.ico"; DestDir: "{app}\assets"; Flags: ignoreversion;  
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

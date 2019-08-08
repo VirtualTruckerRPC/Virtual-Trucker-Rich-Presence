@@ -1,23 +1,14 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.73
+// VIRTUAL TRUCKER RICH PRESENCE 2.74
 
 const {
   compile
 } = require('nexe')
 
-if (process.argv[0] == '--ico') {
-  compile({
-    input: './index.js',
-    build: true, //required to use patches
-    icon: 'assets/vtrpc.ico',
-    name: 'release/VirtualTruckerRichPresence'
-  }).then(() => {
-    console.log('success')
-  })
-} else {
-  compile({
-    input: './index.js',
-    name: 'release/VirtualTruckerRichPresence'
-  }).then(() => {
-    console.log('success')
-  })
-}
+compile({
+  input: './index.js',
+  name: './release/VirtualTruckerRichPresence',
+  ico: './assets/vtrpc.ico',
+  build: true,
+}).then(() => {
+  console.log('success')
+})

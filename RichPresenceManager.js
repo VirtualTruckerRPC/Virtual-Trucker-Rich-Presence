@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.73
+// VIRTUAL TRUCKER RICH PRESENCE 2.74
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -156,11 +156,8 @@ class RichPresenceManager {
             activity = {};
 
             var speed = data.telemetry.truck.speed;
-
-            if (speed < 0)
-                speed = speed * -1;
                 
-            activity.smallImageText = `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${this.calculateDistance(data.telemetry.truck.odometer, this.isAts(data))} ${this.getDistanceUnit(this.isAts(data))}`;
+            activity.smallImageText = `${data.telemetry.truck.make} ${data.telemetry.truck.model} - ${this.calculateDistance(data.telemetry.truck.odometer, this.isAts(data))} ${this.getDistanceUnit(this.isAts(data))}`;
 
             if (config.supportedBrands.includes(data.telemetry.truck.makeID.toLowerCase())) {
                 activity.smallImageKey = `${config.constants.brandPrefix}${data.telemetry.truck.makeID}`;
@@ -177,14 +174,14 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚧 Delivering Special Transport`
                 }
-                activity.largeImageText = `Est. Income: ${this.getCurrency(data)}${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
+                activity.largeImageText = `Income: ${this.getCurrency(data)}${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
             } else {
                 if (data.telemetry.truck.make == false) {
-                    activity.details += `⌛ Loading game...`
+                    activity.details += `🕗 Loading game...`
                 } else {
-                    activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
+                    activity.details += `🚛 Freeroaming | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.7.3`;
+                activity.largeImageText = `VT-RPC v2.7.4`;
             }
 
             if (data.telemetry.truck.make != false) {
@@ -242,7 +239,9 @@ class RichPresenceManager {
 		}
 			
         if (key == '') {
-            if (data.telemetry.truck.lights.lowBeam === true) {
+            if (data.telemetry.truck.make == false){
+                key = config.constants.largeImageKeys.idle;
+            } if (data.telemetry.truck.lights.lowBeam === true) {
                 key = config.constants.largeImageKeys.night;
             } else {
                 key = config.constants.largeImageKeys.day;
