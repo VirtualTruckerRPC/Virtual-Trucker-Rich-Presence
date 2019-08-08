@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.7.2"
+#define MyAppVersion "2.7.3"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"

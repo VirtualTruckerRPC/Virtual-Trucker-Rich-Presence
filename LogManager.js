@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.72
+// VIRTUAL TRUCKER RICH PRESENCE 2.73
 
 const path = require('path');
 const fs = require('fs');

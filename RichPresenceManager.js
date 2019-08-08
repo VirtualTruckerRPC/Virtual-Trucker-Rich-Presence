@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.72
+// VIRTUAL TRUCKER RICH PRESENCE 2.73
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -26,14 +26,14 @@ class RichPresenceManager {
 
         // setting initial variables state
         this.rpc = null;
-        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds; // 2 minutes
-        this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds; // 1 minute
-        this.mpStatsCheckerIntervalTime = config.mpStatsCheckerIntervalMilliseconds; // 5 minutes
+        this.mpCheckerIntervalTime = config.mpCheckerIntervalMilliseconds;
+        this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds;
+        this.mpStatsCheckerIntervalTime = config.mpStatsCheckerIntervalMilliseconds;
 
         if (argv.dev) {
-            this.mpCheckerIntervalTime = 1 * 60 * 1000; // 1 minute
-            this.locationCheckerIntervalTime = 1 * 60 * 1000; // 60 seconds
-            this.mpStatsCheckerIntervalTime = 1 * 60 * 1000; // 60 seconds
+            this.mpCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
+            this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
+            this.mpStatsCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
         }
 
         this.mpInfo = null;
@@ -94,6 +94,10 @@ class RichPresenceManager {
 
                             instance.startLocationChecker();
 
+                            if (argv.dev) {
+                                instance.checkLocationInfo();
+                            }
+
                             // creating a new Discord RPC Client instance
                             instance.rpc = new DiscordRPC.Client({
                                 transport: 'ipc'
@@ -132,7 +136,7 @@ class RichPresenceManager {
         });
 
         this.etcars.on('connect', function (data) {
-            instance.logger.info('Connected to ETCARS');
+            instance.logger.info('Connected to ETCARS');    
             updateChecker.checkUpdates();
         });
 
@@ -180,7 +184,7 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.7.1`;
+                activity.largeImageText = `VT-RPC v2.7.3`;
             }
 
             if (data.telemetry.truck.make != false) {
@@ -189,13 +193,21 @@ class RichPresenceManager {
 
             activity.largeImageKey = this.getLargeImageKey(data);
 
-            if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online && this.mpInfo.server) {
+            if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online != null && this.mpInfo.server != null) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
                 activity.state += util.format(' | %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 TruckersMP`;
             } else {
                 activity.state = `🌐 Singleplayer`;
+            }
+
+            if (this.locationInfo != null && this.locationInfo.inCity == true) {
+                this.inCityDetection = 'In';
+            } else if (this.locationInfo != null && this.locationInfo.inCity == false) {
+                this.inCityDetection = 'Near';
+            } else {
+                this.inCityDetection = null;
             }
 
             if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
