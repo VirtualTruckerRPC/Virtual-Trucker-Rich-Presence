@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.71
+// VIRTUAL TRUCKER RICH PRESENCE 2.72
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -13,7 +13,7 @@ const argv = require('yargs').argv
 const clientConfiguration = require(argv.clientConfiguration ? argv.clientConfiguration : './clientconfiguration.json');
 const UpdateNotifier = require('./UpdateNotifier');
 var child_process = require('child_process');
-//var updateChecker = new UpdateNotifier();
+var updateChecker = new UpdateNotifier();
 
 class RichPresenceManager {
     constructor() {
@@ -133,7 +133,7 @@ class RichPresenceManager {
 
         this.etcars.on('connect', function (data) {
             instance.logger.info('Connected to ETCARS');
-            //updateChecker.checkUpdates();
+            updateChecker.checkUpdates();
         });
 
         this.etcars.on('error', function (data) {
@@ -173,7 +173,7 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚧 Delivering Special Transport`
                 }
-                activity.largeImageText = `Est. Income: ${this.getCurrency(data)} ${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
+                activity.largeImageText = `Est. Income: ${this.getCurrency(data)}${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
             } else {
                 if (data.telemetry.truck.make == false) {
                     activity.details += `⌛ Loading game...`
@@ -196,18 +196,6 @@ class RichPresenceManager {
                 activity.state = `🌐 TruckersMP`;
             } else {
                 activity.state = `🌐 Singleplayer`;
-            }
-            
-            if (this.locationInfo && this.locationInfo.location && this.locationInfo.location != null) {
-                activity.state += util.format(' | Near %s', this.locationInfo.location);
-            }
-
-            if (this.locationInfo != null && this.locationInfo.inCity == true) {
-                this.inCityDetection = 'In';
-            } else if (this.locationInfo != null && this.locationInfo.inCity == false) {
-                this.inCityDetection = 'Near';
-            } else {
-                this.inCityDetection = null;
             }
 
             if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
