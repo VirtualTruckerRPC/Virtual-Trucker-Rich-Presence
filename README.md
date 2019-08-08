@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.7.1
+## Version 2.7.2
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -37,10 +37,15 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
  - Changed layout (see images above for what it now looks like)
  - Logging has been improved
  - Special Transport compatability
- - Near & In City detection!
+ - Near & In City detection! (Thanks to dowmeister)
  - Updated included ETCars 0.15.386 (prev. 0.15)
  - ETCars is now installed from web once again.
  - Revamped installer!
+ - Bug Fixes (2.7.1 & 2.7.2)
+ - Old VT-RPC & ETCars directories deleted on install (2.7.2)
+ - Forced ETCars installation (2.7.2)
+ - Other changes (2.7.2)
+ - Fixed update checker (2.7.2)
 
 
 ## Use in end user environment
@@ -104,7 +109,7 @@ Log file `vtrpc.log` is written in:
 ### Current Staff
 dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
 SgtBreadStick: Coding, Images, Website Developer.  
-Josh Menzel (kirito): ETCARS plugin, compatibility with ETCARS.  
+Josh Menzel (jammerxd): ETCARS plugin, compatibility with ETCARS.  
 Heyhococo: Testing, Mac Testing.  
 Minion_Josh: Testing.
 

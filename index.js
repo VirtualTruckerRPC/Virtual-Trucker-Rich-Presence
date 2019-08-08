@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.71
+// VIRTUAL TRUCKER RICH PRESENCE 2.72
 
 const LogManager = require('./LogManager');
 const logger = new LogManager(); 
@@ -18,7 +18,7 @@ var presenceManager = new RichPresenceManager();
 presenceManager.init();
 
 var updateChecker = new UpdateNotifier();
-//updateChecker.checkUpdates();
+updateChecker.checkUpdates();
 
 // maintain node process running
 process.stdin.resume();

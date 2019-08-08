@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.7.1"
+#define MyAppVersion "2.7.2"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -36,22 +36,29 @@ UsePreviousGroup=False
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x64 ia64
 InternalCompressLevel=ultra64
-CompressionThreads=2
+CompressionThreads=4
 WizardImageStretch=False
 WizardImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc-banner.bmp
 WizardSmallImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc.bmp
 DisableWelcomePage=False
+AlwaysShowComponentsList=yes
 
 [Types]
 Name: full; Description: "Full installation";
-Name: custom; Description: "Update installation"; Flags: iscustom
 
 [Components]
-Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full custom; Flags: fixed
-Name: etcars; Description: "ETCARS 0.15.386 (required)"; Types: full; Flags: fixed
+Name: app; Description: "Virtual Trucker Rich Presence {#MyAppVersion}"; Types: full; Flags: fixed disablenouninstallwarning
+Name: etcars; Description: "ETCARS 0.15.386 (required)"; Types: full; Flags: fixed disablenouninstallwarning
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+
+[InstallDelete]
+Type: filesandordirs; Name: "{pf64}\{#MyAppName}"
+Type: filesandordirs; Name: "{pf}\{#MyAppName}"
+Type: filesandordirs; Name: "{pf64}\ETCARS"
+Type: filesandordirs; Name: "{pf}\ETCARS"
+
 
 [Files]
 Source: "..\release\VirtualTruckerRichPresence.exe"; DestDir: "{app}"; Flags: ignoreversion;
@@ -74,7 +81,7 @@ Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
-Filename: "{localappdata}\Temp\ETCARSx64.exe"; Description: "Install ETCARS"; Flags: postinstall; Components: etcars; Tasks: InstallETCARS;
+Filename: "{localappdata}\Temp\ETCARSx64.exe"; Description: "Install ETCARS"; Components: etcars; Tasks: InstallETCARS; Flags: hidewizard
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im {#MyAppExeName} /f /t";
