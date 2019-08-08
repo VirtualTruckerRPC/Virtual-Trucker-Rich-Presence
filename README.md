@@ -59,7 +59,6 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ### Update 2.7.4
  - Updated NPM to version 6.10.3
  - Changed Loading Game icon
- - Updated compile method
  - Update Notification has changed slightly
  - New update notification sound
  - Pre-release versions no longer cause notification

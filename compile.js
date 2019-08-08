@@ -8,7 +8,7 @@ compile({
   input: './index.js',
   name: './release/VirtualTruckerRichPresence',
   ico: './assets/vtrpc.ico',
-  build: true,
+  build: false,
 }).then(() => {
   console.log('success')
 })
