@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.7.3
+## Version 2.7.4
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -42,20 +42,28 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
  - Updated included ETCars 0.15.386 (prev. 0.15)
  - ETCars is now installed from web once again.
  - Revamped installer!
-================================================================
+####================================================================
 ### Update 2.7.1 / 2.7.2
  - Bug Fixes
  - Old VT-RPC & ETCars directories deleted on install
  - Forced ETCars installation
  - Other changes
  - Fixed update checker
-================================================================
+####================================================================
 ### Update 2.7.3
  - Fixed location tracker
  - Updated the images 🎉
  - Instantly checks location on dev argument
  - RunHidden doesnt run as dev on each startup
-
+####================================================================
+### Update 2.7.4
+ - Updated NPM to version 6.10.3
+ - Changed Loading Game icon
+ - Update Notification has changed slightly
+ - New update notification sound
+ - Pre-release versions no longer cause notification
+ - Shows default ETS2 Image on game loading
+ - Updated Generic Truck image
 
 ## Use in end user environment
 
