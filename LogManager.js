@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.76
+// VIRTUAL TRUCKER RICH PRESENCE 2.77
 
 const path = require('path');
 const fs = require('fs');
@@ -61,13 +61,10 @@ module.exports = class LogManager {
     }
 
     debug(message) {
-
-        if (argv.dev) {
-            var stream = this.openFile();
-            stream.write(this.logLine('DEBUG', message));
-            this.closeFile(stream);
-            this.logToConsole(message);
-        }
+        var stream = this.openFile();
+        stream.write(this.logLine('DEBUG', message));
+        this.closeFile(stream);
+        this.logToConsole(message);
     }
 
     error(exception) {
@@ -96,8 +93,6 @@ module.exports = class LogManager {
     }
 
     logToConsole(message) {
-        if (argv.dev) {
-            console.log(message);
-        }
+        console.log(message);
     }
 }
