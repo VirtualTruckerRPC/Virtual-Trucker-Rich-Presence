@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.7.6
+## Version 2.7.7
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -31,10 +31,9 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)
 
 ## Changelog
-### Update 2.7.6
- - This update is needed in order for VT-RPC to function!
- - New Logo and images!
- - Fixed major nexe issue causing VT-RPC to not run
+### Update 2.7.7
+ - Fixes issue where it doesn't work on non-dev argument
+ - Apparently cos node is stupid, enable debugging stuff makes it work...
 
 ## Use in end user environment
 
