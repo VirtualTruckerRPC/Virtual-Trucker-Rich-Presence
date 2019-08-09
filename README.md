@@ -1,9 +1,9 @@
 <div>
-    <img src="https://i.imgur.com/0wSXSgW.png" width="100%" />
+    <img src="https://i.sgtbrds.tk/ovcnt.png" width="100%" />
 </div>
 
-# Virtual Trucker Rich Presence on Discord
-## Version 2.7.3
+# Virtual Trucker Rich Presence
+## Version 2.7.6
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -24,38 +24,17 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 **Rich presence example on Single Player**
 
-![Rich presence example on Single Player](https://i.imgur.com/SWMBaXf.png)
+![Rich presence example on Single Player](https://i.sgtbrds.tk/2ktsc.png)
 
 **Rich presence example on Multiplayer**
 
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)
 
 ## Changelog
-### Updated 2.7.0
- - Updated Node Packs and NPM
- - Removed Server Player ID and added server users and max slots
- - Removed leftover code
- - Changed layout (see images above for what it now looks like)
- - Logging has been improved
- - Special Transport compatability
- - Near & In City detection! (Thanks to dowmeister)
- - Updated included ETCars 0.15.386 (prev. 0.15)
- - ETCars is now installed from web once again.
- - Revamped installer!
-================================================================
-### Update 2.7.1 / 2.7.2
- - Bug Fixes
- - Old VT-RPC & ETCars directories deleted on install
- - Forced ETCars installation
- - Other changes
- - Fixed update checker
-================================================================
-### Update 2.7.3
- - Fixed location tracker
- - Updated the images 🎉
- - Instantly checks location on dev argument
- - RunHidden doesnt run as dev on each startup
-
+### Update 2.7.6
+ - This update is needed in order for VT-RPC to function!
+ - New Logo and images!
+ - Fixed major nexe issue causing VT-RPC to not run
 
 ## Use in end user environment
 

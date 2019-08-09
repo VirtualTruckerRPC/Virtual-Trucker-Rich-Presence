@@ -1,6 +1,6 @@
 {
 	"name": "virtual-trucker-rich-presence",
-	"version": "2.7.3",
+	"version": "2.7.6",
 	"description": "An easy tool to let others see your current job, truck, etc. on Discord!",
 	"main": "index.js",
 	"dependencies": {
@@ -14,7 +14,7 @@
 		"node-fetch": "^2.6.0",
 		"node-notifier": "^5.4.1",
 		"npm": "^6.10.3",
-		"open": "6.2.0",
+		"open": "6.4.0",
 		"uWebSockets.js": "github:uNetworking/uWebSockets.js#v15.10.0",
 		"update": "^0.7.4",
 		"yargs": "^13.3.0"

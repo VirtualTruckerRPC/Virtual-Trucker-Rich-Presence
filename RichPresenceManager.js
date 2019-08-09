@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.73
+// VIRTUAL TRUCKER RICH PRESENCE 2.76
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -92,6 +92,8 @@ class RichPresenceManager {
                             }
                             instance.logger.info(`Using Discord Application ID ${applicationID}`);
 
+                            instance.timestamp = Date.now()
+
                             instance.startLocationChecker();
 
                             if (argv.dev) {
@@ -156,11 +158,8 @@ class RichPresenceManager {
             activity = {};
 
             var speed = data.telemetry.truck.speed;
-
-            if (speed < 0)
-                speed = speed * -1;
                 
-            activity.smallImageText = `${data.telemetry.truck.make} ${data.telemetry.truck.model} - At ${this.calculateDistance(data.telemetry.truck.odometer, this.isAts(data))} ${this.getDistanceUnit(this.isAts(data))}`;
+            activity.smallImageText = `${data.telemetry.truck.make} ${data.telemetry.truck.model} - ${this.calculateDistance(data.telemetry.truck.odometer, this.isAts(data))} ${this.getDistanceUnit(this.isAts(data))}`;
 
             if (config.supportedBrands.includes(data.telemetry.truck.makeID.toLowerCase())) {
                 activity.smallImageKey = `${config.constants.brandPrefix}${data.telemetry.truck.makeID}`;
@@ -170,21 +169,22 @@ class RichPresenceManager {
             
             activity.details = '';
             activity.state = '';
+            activity.startTimestamp = this.timestamp;
 
             if (typeof data.telemetry.job != 'undefined' && data.telemetry.job && data.telemetry.job.onJob === true) {
                 if (data.telemetry.job.sourceCity != null){
-                    activity.details += `🚚 Delivering From ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity}`;
+                    activity.details += `🚚 ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity}`;
                 } else {
-                    activity.details += `🚧 Delivering Special Transport`
+                    activity.details += `🚧 Special Transport`
                 }
-                activity.largeImageText = `Est. Income: ${this.getCurrency(data)}${data.telemetry.job.income} - ${data.telemetry.job.cargo}`;
+                activity.largeImageText = `Income: ${this.getCurrency(data)}${data.telemetry.job.income}`;
             } else {
                 if (data.telemetry.truck.make == false) {
-                    activity.details += `⌛ Loading game...`
+                    activity.details += `🕗 Loading game...`
                 } else {
-                    activity.details += `🚛 Freeroaming in a ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
+                    activity.details += `🚛 Freeroaming | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.7.3`;
+                activity.largeImageText = `VT-RPC v2.7.5`;
             }
 
             if (data.telemetry.truck.make != false) {
@@ -193,9 +193,18 @@ class RichPresenceManager {
 
             activity.largeImageKey = this.getLargeImageKey(data);
 
+            if ( this.mpStatsInfo != null) {
+                if (this.mpStatsInfo.prefix != null) {
+                    this.mpPrefix = this.mpStatsInfo.prefix;
+                } else {
+                    this.mpPrefix = '';
+                }
+            }
+
             if (this.mpInfo != null && this.mpStatsInfo != null && this.mpInfo.online != null && this.mpInfo.server != null) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
                 activity.state += util.format(' | %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
+                activity.largeImageText += util.format(' | ID: %s%s', this.mpPrefix, this.mpInfo.playerid)
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 TruckersMP`;
             } else {
@@ -242,7 +251,9 @@ class RichPresenceManager {
 		}
 			
         if (key == '') {
-            if (data.telemetry.truck.lights.lowBeam === true) {
+            if (data.telemetry.truck.make == false){
+                key = config.constants.largeImageKeys.idle;
+            } if (data.telemetry.truck.lights.lowBeam === true) {
                 key = config.constants.largeImageKeys.night;
             } else {
                 key = config.constants.largeImageKeys.day;
@@ -419,6 +430,7 @@ class RichPresenceManager {
                                 online: true,
                                 server: response.onlineState.serverDetails,
                                 apiserverid: response.onlineState.serverDetails.apiserverid,
+                                playerid: response.onlineState.p_id,
                             };
                         } else {
                             instance.mpInfo = {
@@ -458,6 +470,7 @@ class RichPresenceManager {
                         instance.mpStatsInfo = {
                             serverUS: server.players,
                             serverMAX: server.maxplayers,
+                            prefix: server.idprefix,
                         };
                     }
                     catch (error) {
