@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence on Discord
-## Version 2.7.4
+## Version 2.7.5
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 
@@ -24,7 +24,7 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 **Rich presence example on Single Player**
 
-![Rich presence example on Single Player](https://i.imgur.com/SWMBaXf.png)
+![Rich presence example on Single Player](https://i.sgtbrds.tk/2ktsc.png)
 
 **Rich presence example on Multiplayer**
 
@@ -64,6 +64,13 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
  - Pre-release versions no longer cause notification
  - Shows default ETS2 Image on game loading
  - Updated Generic Truck image
+ #### ================================================================
+ ### Update 2.7.5
+ - Removed "Delivering from" text to match new style
+ - Removed Cargo name from large image text
+ - Added TMP player ID (with prefix if any) to large image text
+ - Fixed update notification
+ - Added timestamp to show how long you've played ETS2/ATS
 
 ## Use in end user environment
 

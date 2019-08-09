@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.74
+// VIRTUAL TRUCKER RICH PRESENCE 2.75
 
 var fetch = require('node-fetch');
 const notifier = require('node-notifier');
@@ -24,7 +24,7 @@ class UpdateNotifier {
 
             instance.logger.info(`Current version: ${packageInfo.version}, Stable release: ${response.tag_name}`);
 
-            if (packageInfo.version <= response.tag_name && !response.prerelease) {
+            if (packageInfo.version < response.tag_name && !response.prerelease) {
 
                 instance.logger.info('Sending notification');
 

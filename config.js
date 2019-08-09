@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.74
+// VIRTUAL TRUCKER RICH PRESENCE 2.75
 
 const packageInfo = require('./package.json');
 

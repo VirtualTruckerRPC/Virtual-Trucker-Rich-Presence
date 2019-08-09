@@ -15,6 +15,4 @@ Things to note!
 
 * Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15.386 from our installer.
 
-* Promods isn't supported currently but there are future plans for supporting it.
-
-* IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
+* IF YOU HAVE ETCARS older than 0.15.386.INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!

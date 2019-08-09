@@ -1,4 +1,4 @@
-' VIRTUAL TRUCKER RICH PRESENCE 2.74
+' VIRTUAL TRUCKER RICH PRESENCE 2.75
 scriptdir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
 Set shell = CreateObject("Wscript.Shell")
 shell.CurrentDirectory = scriptdir
