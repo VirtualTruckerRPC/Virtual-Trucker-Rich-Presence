@@ -41,15 +41,14 @@ WizardImageStretch=False
 WizardImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc-banner.bmp
 WizardSmallImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc.bmp
 DisableWelcomePage=False
-AlwaysShowComponentsList=yes
 
 [Types]
 Name: full; Description: "Full installation";
-Name: update; Description: "Update installation";
+Name: update; Description: "Update installation"; Flags: iscustom
 
 [Components]
 Name: app; Description: "Virtual Trucker Rich Presence v{#MyAppVersion}"; Types: full update; Flags: fixed disablenouninstallwarning
-Name: etcars; Description: "ETCARS 0.15.386 (Required)"; Types: full; Flags: disablenouninstallwarning
+Name: etcars; Description: "ETCARS 0.15.386 (Required)"; Types: full; Flags: fixed disablenouninstallwarning
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
