@@ -72,6 +72,7 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
  - Fixed update notification
  - Added timestamp to show how long you've played ETS2/ATS
 
+
 ## Use in end user environment
 
 * Install Virtual Trucker Rich Presence using a release installation package from [Releases Page](https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases) .

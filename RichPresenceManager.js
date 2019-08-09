@@ -33,7 +33,7 @@ class RichPresenceManager {
         if (argv.dev) {
             this.mpCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
             this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
-            this.mpStatsCheckerIntervalTime = 0.1 * 60 * 1000; // 30 seconds
+            this.mpStatsCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
         }
 
         this.mpInfo = null;
