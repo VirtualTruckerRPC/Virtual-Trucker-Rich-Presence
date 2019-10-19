@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.77
+// VIRTUAL TRUCKER RICH PRESENCE 2.80
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -12,17 +12,24 @@ const path = require('path');
 const argv = require('yargs').argv
 const clientConfiguration = require(argv.clientConfiguration ? argv.clientConfiguration : './clientconfiguration.json');
 const UpdateNotifier = require('./UpdateNotifier');
+const ProModsNotifier = require('./ProModsNotifier');
 var child_process = require('child_process');
 var updateChecker = new UpdateNotifier();
+var promodsNotify = new ProModsNotifier();
 
 class RichPresenceManager {
     constructor() {
         this.logger = new LogManager();
         this.etcars = new ETCarsClient();
 
+        if(argv.promods) {
+            argv.dev == true;
+        }
+
         // configure logging for ETCars client
-        if (argv.dev)
+        if(argv.dev) {
             this.etcars.enableDebug = false;
+        }
 
         // setting initial variables state
         this.rpc = null;
@@ -30,7 +37,7 @@ class RichPresenceManager {
         this.locationCheckerIntervalTime = config.locationCheckerIntervalMilliseconds;
         this.mpStatsCheckerIntervalTime = config.mpStatsCheckerIntervalMilliseconds;
 
-        if (argv.dev) {
+        if(argv.dev) {
             this.mpCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
             this.locationCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
             this.mpStatsCheckerIntervalTime = 0.5 * 60 * 1000; // 30 seconds
@@ -94,10 +101,12 @@ class RichPresenceManager {
 
                             instance.timestamp = Date.now()
 
-                            instance.startLocationChecker();
+                            if (!instance.checkIfMultiplayer(data)){
+                                instance.startLocationChecker();
 
-                            if (argv.dev) {
-                                instance.checkLocationInfo();
+                                if (argv.dev) {
+                                    instance.checkLocationInfo();
+                                }
                             }
 
                             // creating a new Discord RPC Client instance
@@ -140,6 +149,7 @@ class RichPresenceManager {
         this.etcars.on('connect', function (data) {
             instance.logger.info('Connected to ETCARS');    
             updateChecker.checkUpdates();
+            promodsNotify.notifyUser();
         });
 
         this.etcars.on('error', function (data) {
@@ -184,7 +194,7 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚛 Freeroaming | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
-                activity.largeImageText = `VT-RPC v2.7.5`;
+                activity.largeImageText = `VT-RPC v2.8.0`;
             }
 
             if (data.telemetry.truck.make != false) {
@@ -205,11 +215,18 @@ class RichPresenceManager {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
                 activity.state += util.format(' | %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
                 activity.largeImageText += util.format(' | ID: %s%s', this.mpPrefix, this.mpInfo.playerid)
+                if(this.mpInfo.mod == "promods") {
+                    activity.state += ' | ProMods';
+                }
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 TruckersMP`;
             } else {
-                activity.state = `🌐 Singleplayer`;
+                activity.state = ('🌐 Singleplayer');
+                if(argv.promods) {
+                    activity.state += ' | ProMods';
+                }
             }
+
 
             if (this.locationInfo != null && this.locationInfo.inCity == true) {
                 this.inCityDetection = 'In';
@@ -231,24 +248,20 @@ class RichPresenceManager {
         return activity;
     }
 
-    getCurrency(data) {
-        if (this.isAts(data))
-            return config.constants.currencies.dollars;
-        else
-            return config.constants.currencies.euros;
-    }
-
-    isAts(data) {
-        return data.telemetry.game.gameID == config.constants.ats;
-    }
-
     getLargeImageKey(data) {
         var prefix = config.constants.ets2LargeImagePrefix;
         var key = '';
 
-        if (this.isAts(data)){
+        if(this.mpInfo != null) {
+            if(this.mpInfo.mod == "promods" || argv.promods) {
+                prefix = config.constants.promodsLargeImagePrefix;
+            }
+        }
+        
+
+        if (this.isAts(data)) {
             prefix = config.constants.atsLargeImagePrefix;
-		}
+        }
 			
         if (key == '') {
             if (data.telemetry.truck.make == false){
@@ -262,6 +275,17 @@ class RichPresenceManager {
 
         //console.log(key);
         return prefix + key;
+    }
+
+    getCurrency(data) {
+        if (this.isAts(data))
+            return config.constants.currencies.dollars;
+        else
+            return config.constants.currencies.euros;
+    }
+
+    isAts(data) {
+        return data.telemetry.game.gameID == config.constants.ats;
     }
 
     getDistanceUnit(isAts) {
@@ -306,7 +330,7 @@ class RichPresenceManager {
         } else {
             if (clientConfiguration.configuration.distanceUnit == config.constants.km)
                 return Math.round(value);
-            else
+            else 
                 return Math.round(value * config.kmToMilesConversion);
         }
     }
@@ -353,6 +377,8 @@ class RichPresenceManager {
     resetETCarsData() {
         this.lastData = null;
         this.mpInfo = null;
+        this.mpStatsInfo = null;
+        this.locationInfo = null;
     }
 
     resetMPChecker() {
@@ -360,6 +386,7 @@ class RichPresenceManager {
             clearInterval(this.mpCheckerInterval);
             this.mpCheckerInterval = null;
             this.mpInfo = null;
+            this.locationInfo = null;
             this.logger.info('MP Checker interval reset');
         }
     }
@@ -431,11 +458,24 @@ class RichPresenceManager {
                                 server: response.onlineState.serverDetails,
                                 apiserverid: response.onlineState.serverDetails.apiserverid,
                                 playerid: response.onlineState.p_id,
+                                mod: response.onlineState.serverDetails.mod
                             };
+                            instance.locationInfo = {
+                                location: response.onlineState.location.poi.realName,
+                                inCity: response.onlineState.location.area
+                            }
                         } else {
                             instance.mpInfo = {
-                                online: false
+                                online: false,
+                                server: false,
+                                apiserverid: false,
+                                playerid: false,
+                                mod: false
                             }
+                            instance.locationInfo = {
+                                location: false,
+                                inCity: false
+                            };
                         };
                     }
                     catch (error) {
