@@ -259,7 +259,7 @@ class RichPresenceManager {
         var prefix = config.constants.ets2LargeImagePrefix;
         var key = '';
 
-        if(argv.promods || this.mpInfo.dlc == Promods) {
+        if(this.mpStatsInfo.promods == true || argv.promods) {
             prefix = config.constants.promodsLargeImagePrefix;
         }
 
@@ -451,7 +451,6 @@ class RichPresenceManager {
                                 server: response.onlineState.serverDetails,
                                 apiserverid: response.onlineState.serverDetails.apiserverid,
                                 playerid: response.onlineState.p_id,
-                                dlc: response.location.dlc,
                             };
                             instance.locationInfo = {
                                 location: response.poi.realName,
@@ -459,7 +458,7 @@ class RichPresenceManager {
                             }
                         } else {
                             instance.mpInfo = {
-                                online: false
+                                online: false,
                             }
                             instance.locationInfo = {
                                 location: false,
@@ -522,11 +521,6 @@ class RichPresenceManager {
                     inCity: null,
                 };
             } else {
-                if(argv.promods) {
-                    instance.mapResolve == 'promods';
-                } else {
-                    instance.mapResolve == this.lastData.telemetry.game.gameID;
-                }
                 this.logger.info('Checking location');
             
                 var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);

@@ -19,10 +19,10 @@ THIS VERSION INCLUDES ETCARS 0.15.386, YOU MUST DO A FULL INSTALL FOR THIS TO WO
 * IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
 
 Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
-**Rich presence example on Single Player**
-![Rich presence example on Single Player](https://i.sgtbrds.tk/2ktsc.png)
-**Rich presence example on Multiplayer**
-![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)
+**Rich presence example on Single Player**  
+![Rich presence example on Single Player](https://i.sgtbrds.tk/2ktsc.png)  
+**Rich presence example on Multiplayer**  
+![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
 ### Update 2.8.0
