@@ -15,4 +15,4 @@ Things to note!
 
 * Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15.386 from our installer.
 
-* IF YOU HAVE ETCARS older than 0.15.386.INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
+* IF YOU HAVE ETCARS older than 0.15.386 INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
