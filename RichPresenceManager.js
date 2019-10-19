@@ -215,6 +215,9 @@ class RichPresenceManager {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.shortname);
                 activity.state += util.format(' | %s/%s', this.mpStatsInfo.serverUS, this.mpStatsInfo.serverMAX);
                 activity.largeImageText += util.format(' | ID: %s%s', this.mpPrefix, this.mpInfo.playerid)
+                if(this.mpInfo.mod == "promods") {
+                    activity.state += ' | ProMods';
+                }
             } else if (data.telemetry.game.isMultiplayer == true) {
                 activity.state = `🌐 TruckersMP`;
             } else {
@@ -223,6 +226,7 @@ class RichPresenceManager {
                     activity.state += ' | ProMods';
                 }
             }
+
 
             if (this.locationInfo != null && this.locationInfo.inCity == true) {
                 this.inCityDetection = 'In';
@@ -244,24 +248,16 @@ class RichPresenceManager {
         return activity;
     }
 
-    getCurrency(data) {
-        if (this.isAts(data))
-            return config.constants.currencies.dollars;
-        else
-            return config.constants.currencies.euros;
-    }
-
-    isAts(data) {
-        return data.telemetry.game.gameID == config.constants.ats;
-    }
-
     getLargeImageKey(data) {
         var prefix = config.constants.ets2LargeImagePrefix;
         var key = '';
 
-        if(this.mpStatsInfo.promods == true || argv.promods) {
-            prefix = config.constants.promodsLargeImagePrefix;
+        if(this.mpInfo != null) {
+            if(this.mpInfo.mod == "promods" || argv.promods) {
+                prefix = config.constants.promodsLargeImagePrefix;
+            }
         }
+        
 
         if (this.isAts(data)) {
             prefix = config.constants.atsLargeImagePrefix;
@@ -279,6 +275,17 @@ class RichPresenceManager {
 
         //console.log(key);
         return prefix + key;
+    }
+
+    getCurrency(data) {
+        if (this.isAts(data))
+            return config.constants.currencies.dollars;
+        else
+            return config.constants.currencies.euros;
+    }
+
+    isAts(data) {
+        return data.telemetry.game.gameID == config.constants.ats;
     }
 
     getDistanceUnit(isAts) {
@@ -451,18 +458,23 @@ class RichPresenceManager {
                                 server: response.onlineState.serverDetails,
                                 apiserverid: response.onlineState.serverDetails.apiserverid,
                                 playerid: response.onlineState.p_id,
+                                mod: response.onlineState.serverDetails.mod
                             };
                             instance.locationInfo = {
-                                location: response.poi.realName,
-                                inCity: response.area,
+                                location: response.onlineState.location.poi.realName,
+                                inCity: response.onlineState.location.area
                             }
                         } else {
                             instance.mpInfo = {
                                 online: false,
+                                server: false,
+                                apiserverid: false,
+                                playerid: false,
+                                mod: false
                             }
                             instance.locationInfo = {
                                 location: false,
-                                inCity: null,
+                                inCity: false
                             };
                         };
                     }
@@ -499,7 +511,6 @@ class RichPresenceManager {
                             serverUS: server.players,
                             serverMAX: server.maxplayers,
                             prefix: server.idprefix,
-                            promods: server.promods,
                         };
                     }
                     catch (error) {
