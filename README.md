@@ -106,7 +106,6 @@ This is for those who just want to run it with 1 click. All scripts are located 
 
 # Credits To Staff
 ### Current Staff
-dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
 SgtBreadStick: Coding, Images, Guides, Website Developer.  
 jammerxd: ETCARS plugin, compatibility with ETCARS.  
 Cody™: Bot Development.  
@@ -114,5 +113,6 @@ Heyhococo: Testing, Mac Testing.
 Minion_Josh: Testing.
 
 ### Retired Staff
-Lasse: Initial project, coding. 
+Lasse: Initial project, coding.  
+dowmeister: ETCARS plugin, coding, Trucky & Trucky API. 
 Rein: Previous Images.
