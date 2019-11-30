@@ -93,7 +93,7 @@ Run `RebootVTRPC.bat` from installation directory or start menu/screen.
 
 ## Can't download ETCARS from installer
 
-On Windows 7 you could encounter an error during ETCARS download from VTRPC installer. If this happens, download and install ETCARS separately from [ETCARS official site](https://myalpha.menzelstudios.com/) . Then restart VT-RPC installer without download and install ETCARS.
+On Windows 7 you could encounter an error during ETCARS download from VTRPC installer. If this happens, download and install ETCARS separately from [ETCARS official site](https://etcars.menzelstudios.com/) . Then restart VT-RPC installer without download and install ETCARS.
 
 ## My Rich Presence isn't updating
 

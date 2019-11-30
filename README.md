@@ -1,21 +1,20 @@
 <div>
-    <img src="https://i.sgtbrds.tk/ovcnt.png" width="100%" />
+    <img src="https://i.sgtbrds.tk/js3fxk.png" width="100%" />
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.8.0
+## Version 2.8.1
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
-Your image will change on the rich presence depending if your lights are on.  
 ETCARS 0.15.386 is required for the RPC to work, older versions will not work.  
 THIS VERSION INCLUDES ETCARS 0.15.386, YOU MUST DO A FULL INSTALL FOR THIS TO WORK
 
 ## Things to note!
 * TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!
 * Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15.386 from our installer.
-* Promods isn't supported currently but there are future plans for supporting it.
+* Promods is only supported on MP or via the developer argument
 * IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
 
 Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
@@ -25,12 +24,25 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
-### Update 2.8.0
- - FULL ProMods (with TruckersMP) Support!
- - Fixed version display errors
- - Added guides and other information on developing VT-RPC
- - Uses MP information for location unless in Singleplayer
- - Added ProMods mode for development uses
+### Update 2.8.1
+ - No longer shows generic truck icon when game is loading
+ - Better game loading detection and status (code)
+ - Updated node packages
+ - Now using NodeJS version 12.13.0
+ - Removed Speed & Server Stats
+ - Removed " | ProMods" text
+ - Removed MP Server Stats Checker
+ - Removed Job Income from Large Image Hover
+ - Removed Night image(s) due to technical issues
+ - Moved most of code to prevent issues
+ - Removed un-needed functions
+ - Removed un-needed node packages
+
+## Known Issues:
+ - Memory leaking (Highly rare)
+ - VT-RPC crashing randomly (reboot vtrpc)
+ - VT-RPC status freezing on discord (reboot vtrpc)
+ - After a while of being in-game, VT-RPC info may be delayed on discord
 
 ## Use in end user environment
 * Install Virtual Trucker Rich Presence using a release installation package from [Releases Page](https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases) .
