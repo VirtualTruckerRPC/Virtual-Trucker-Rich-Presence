@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.81
+// VIRTUAL TRUCKER RICH PRESENCE 2.82
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -365,7 +365,7 @@ class RichPresenceManager {
             activity.largeImageText = `VT-RPC v2.8.1`;
             activity.largeImageKey = this.getLargeImageKey(data);
 
-            if (this.mpInfo != null && this.mpInfo.online != null && this.mpInfo.server != null) {
+            if (this.mpInfo != null && this.mpInfo.online != false) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.name);
                 activity.largeImageText += util.format(' | ID: %s', this.mpInfo.playerid)
             } else if (data.telemetry.game.isMultiplayer == true) {

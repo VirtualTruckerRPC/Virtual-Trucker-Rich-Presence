@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.8.1
+## Version 2.8.2
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
@@ -24,6 +24,8 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
+### Update 2.8.2
+ - Fixed multiplayer "undefined" error when game is loading
 ### Update 2.8.1
  - No longer shows generic truck icon when game is loading
  - Better game loading detection and status (code)

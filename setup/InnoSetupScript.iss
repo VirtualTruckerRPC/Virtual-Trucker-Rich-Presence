@@ -1,9 +1,9 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.8.1"
+#define MyAppVersion "2.8.2"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
-#define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
+#define MyAppURL "https://vtrpc.live"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
 #define MyServiceName "VirtualTruckerRichPresence"
 #define RunHiddenVbs "RunHidden.vbs"
