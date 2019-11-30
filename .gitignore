@@ -67,5 +67,6 @@ output
 # VTRPC VSCode Workspace
 VT-RPC.code-workspace
 
-# Package-Lock JSON
-package-lock.json
+# VTRPC .vscode & .vs
+.vscode/
+.vs/

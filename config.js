@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.77
+// VIRTUAL TRUCKER RICH PRESENCE 2.81
 
 const packageInfo = require('./package.json');
 
@@ -9,11 +9,8 @@ module.exports = {
     },
     version: `Virtual Trucker Rich Presence ${packageInfo.version}`,
     kmToMilesConversion: 0.62,
-    mpCheckerIntervalMilliseconds: 2 * 60 * 1000,
-    mpStatsCheckerIntervalMilliseconds: 5 * 60 * 1000,
+    mpCheckerIntervalMilliseconds: 1.5 * 60 * 1000,
     locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
-    kphString: 'km/h',
-    mphString: 'mph',
     kmString: 'KM',
     milesString: 'Mi',
     constants: {
@@ -25,14 +22,10 @@ module.exports = {
         brandGenericKey: 'brand_generic',
         ets2LargeImagePrefix: 'ets2rpc_',
         atsLargeImagePrefix: 'atsrpc_',
+        promodsLargeImagePrefix: 'promods_',
         largeImageKeys: {
             idle: 'idle',
-            day: 'day',
-            night: 'night',
-        },
-        currencies: {
-            euros: '€',
-            dollars: '$'
+            active: 'active',
         },
         speedMultiplierValue: 3.6
     },

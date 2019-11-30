@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.77
+// VIRTUAL TRUCKER RICH PRESENCE 2.81
 
 var fetch = require('node-fetch');
 const notifier = require('node-notifier');
@@ -13,7 +13,6 @@ class UpdateNotifier {
     }
 
     checkUpdates() {
-
         var instance = this;
 
         this.logger.info('Check for update...');
@@ -46,9 +45,9 @@ class UpdateNotifier {
                         if (err) {
                             instance.logger.info('Notification sent with error');
                             instance.logger.error(err)
-                        }
-                        else
+                        } else {
                             instance.logger.info('Notification sent');
+                        }
                     }
                 );
 

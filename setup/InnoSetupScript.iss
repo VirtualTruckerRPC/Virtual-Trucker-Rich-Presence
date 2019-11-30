@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.7.7"
+#define MyAppVersion "2.8.1"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -38,8 +38,8 @@ ArchitecturesAllowed=x64 ia64
 InternalCompressLevel=ultra64
 CompressionThreads=4
 WizardImageStretch=False
-WizardImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc-banner.bmp
-WizardSmallImageFile=C:\Users\supac\Documents\Virtual-Trucker-Rich-Presence\assets\vtrpc.bmp
+WizardImageFile=..\assets\vtrpc-banner.bmp
+WizardSmallImageFile=..\assets\vtrpc.bmp
 DisableWelcomePage=False
 
 [Types]
@@ -74,7 +74,7 @@ Name: "{group}\Uninstall VT-RPC"; Filename: "{uninstallexe}";
 [Tasks]
 Name: "StartMenuEntry" ; Description: "Start {#MyAppName} when Windows starts (Recommended)" ; GroupDescription: "Windows Startup"; MinVersion: 4,4;
 Name: "InstallETCARS"; Description: "Install ETCARS after installation"; GroupDescription: "Other Tasks"; Components: etcars;
-Name: "SpeedUnitConfigurationMPH"; Description: "Use MPH for speed and distance units on ETS2"; GroupDescription: "Configuration"; Flags: unchecked 
+Name: "DistanceUnitConfigurationMi"; Description: "Use Miles for distance units on ETS2"; GroupDescription: "Configuration"; Flags: unchecked 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;
@@ -118,7 +118,7 @@ procedure PerformAfterInstallActions();
       DeleteFile(clientConfFile);
     end;
 
-    if IsTaskSelected('SpeedUnitConfigurationMPH') then
+    if IsTaskSelected('DistanceUnitConfigurationMi') then
     begin
         SaveStringToFile(clientConfFile, '{ "configuration": { "distanceUnit": "m" } }', True);
     end
