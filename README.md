@@ -114,5 +114,5 @@ Minion_Josh: Testing.
 
 ### Retired Staff
 Lasse: Initial project, coding.  
-dowmeister: ETCARS plugin, coding, Trucky & Trucky API. 
+dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
 Rein: Previous Images.
