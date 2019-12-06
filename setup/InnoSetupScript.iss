@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.8.2"
+#define MyAppVersion "2.8.3"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://vtrpc.live"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -48,7 +48,7 @@ Name: update; Description: "Update installation"; Flags: iscustom
 
 [Components]
 Name: app; Description: "Virtual Trucker Rich Presence v{#MyAppVersion}"; Types: full update; Flags: fixed disablenouninstallwarning
-Name: etcars; Description: "ETCARS 0.15.386 (Required)"; Types: full; Flags: fixed disablenouninstallwarning
+Name: etcars; Description: "ETCARS 0.15.386 (Required)"; Types: full; Flags: disablenouninstallwarning
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -61,8 +61,8 @@ Type: filesandordirs; Name: "{pf}\{#MyAppName}"
 Source: "..\release\VirtualTruckerRichPresence.exe"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\vbs\RunHidden.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bat\RebootVTRPC.bat"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "..\node_modules\node-notifier\vendor\SnoreToast\SnoreToast.exe"; DestDir: "{app}\vendor\SnoreToast\"; Flags: ignoreversion;
-Source: "..\node_modules\node-notifier\vendor\notifu\*.*"; DestDir: "{app}\vendor\notifu\"; Flags: ignoreversion;
+Source: "..\node_modules\node-notifier\vendor\snoreToast\snoretoast-x64.exe"; DestDir: "{app}\vendor\SnoreToast\"; Flags: ignoreversion;
+Source: "..\node_modules\node-notifier\vendor\notifu\notifu64.exe"; DestDir: "{app}\vendor\notifu\"; Flags: ignoreversion;
 Source: "..\assets\vtrpc.ico"; DestDir: "{app}\assets"; Flags: ignoreversion;  
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -74,7 +74,7 @@ Name: "{group}\Uninstall VT-RPC"; Filename: "{uninstallexe}";
 [Tasks]
 Name: "StartMenuEntry" ; Description: "Start {#MyAppName} when Windows starts (Recommended)" ; GroupDescription: "Windows Startup"; MinVersion: 4,4;
 Name: "InstallETCARS"; Description: "Install ETCARS after installation"; GroupDescription: "Other Tasks"; Components: etcars;
-Name: "DistanceUnitConfigurationMi"; Description: "Use Miles for distance units on ETS2"; GroupDescription: "Configuration"; Flags: unchecked 
+Name: "DistanceUnitConfigurationMi"; Description: "Use Miles & MPH for distance/speed units on ETS2"; GroupDescription: "Configuration"; Flags: unchecked 
 
 [Run]
 Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Description: "Run {#MyAppName} immediately"; Flags: postinstall runhidden;

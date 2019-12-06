@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.82
+// VIRTUAL TRUCKER RICH PRESENCE 2.83
 
 const packageInfo = require('./package.json');
 
@@ -13,6 +13,8 @@ module.exports = {
     locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
     kmString: 'KM',
     milesString: 'Mi',
+    kphString: 'km/h',
+    mphString: 'mph',
     constants: {
         km: 'km',
         miles: 'm',

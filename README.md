@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.8.2
+## Version 2.8.3
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
@@ -24,6 +24,14 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
+### Update 2.8.3
+ - Added Speed again (When engine is turned on)
+ - Removed duplicate functions
+ - Added current vehicle info when doing a delivery
+ - Changed "In (CITY)" to "At (CITY)"
+ - Other minor fixes
+ - Updated Node Packages
+ - Changed Node-Notifier (snoreToast & notifu64) files in .iss script
 ### Update 2.8.2
  - Fixed multiplayer "undefined" error when game is loading
 ### Update 2.8.1
@@ -42,9 +50,10 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 
 ## Known Issues:
  - Memory leaking (Highly rare)
- - VT-RPC crashing randomly (reboot vtrpc)
- - VT-RPC status freezing on discord (reboot vtrpc)
+ - VT-RPC crashing randomly (reboot vtrpc to fix)
+ - VT-RPC status freezing on discord (reboot vtrpc to fix)
  - After a while of being in-game, VT-RPC info may be delayed on discord
+ - VT-RPC not displaying on game launch (reboot vtrpc to fix)
 
 ## Use in end user environment
 * Install Virtual Trucker Rich Presence using a release installation package from [Releases Page](https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases) .

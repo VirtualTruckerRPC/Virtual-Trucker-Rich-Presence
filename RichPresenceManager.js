@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.82
+// VIRTUAL TRUCKER RICH PRESENCE 2.83
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -166,15 +166,6 @@ class RichPresenceManager {
             this.logger.info('Starting MP Checker interval');
         }
     }
-    startLocationChecker() {
-        if (this.locationCheckerInterval == null) {
-            var instance = this;
-            this.locationCheckerInterval = setInterval(() => {
-                instance.checkLocationInfo()
-            }, this.locationCheckerIntervalTime);
-            this.logger.info('Starting Location Checker interval');
-        }
-    }
 
     startLocationChecker() {
         if (this.locationCheckerInterval == null) {
@@ -202,15 +193,6 @@ class RichPresenceManager {
             this.logger.info('MP Checker interval reset');
         }
     }
-    resetLocationChecker() {
-        if (this.locationCheckerInterval != null) {
-            clearInterval(this.locationCheckerInterval);
-            this.locationCheckerInterval = null;
-            this.locationInfo = null;
-            this.logger.info('Location Checker interval reset');
-        }
-    }
-
     resetLocationChecker() {
         if (this.locationCheckerInterval != null) {
             clearInterval(this.locationCheckerInterval);
@@ -350,9 +332,9 @@ class RichPresenceManager {
 
             if (typeof data.telemetry.job != 'undefined' && data.telemetry.job && data.telemetry.job.onJob === true) {
                 if (data.telemetry.job.sourceCity != null){
-                    activity.details += `🚚 ${data.telemetry.job.sourceCity} >> ${data.telemetry.job.destinationCity}`;
+                    activity.details += `🚚 ${data.telemetry.job.sourceCity} > ${data.telemetry.job.destinationCity} | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 } else {
-                    activity.details += `🚧 Special Transport`
+                    activity.details += `🚧 Special Transport | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`
                 }
             } else {
                 if (this.gameLoading) {
@@ -360,6 +342,10 @@ class RichPresenceManager {
                 } else {
                     activity.details += `🚛 Freeroaming | ${data.telemetry.truck.make} ${data.telemetry.truck.model}`;
                 }
+            }
+
+            if (!this.gameLoading && data.telemetry.truck.engineEnabled == true) {
+                activity.details += util.format(` at ${this.calculateSpeed(speed, this.isAts(data))}${this.getSpeedUnit(this.isAts(data))}`);
             }
 
             activity.largeImageText = `VT-RPC v2.8.1`;
@@ -376,7 +362,7 @@ class RichPresenceManager {
 
 
             if (this.locationInfo != null && this.locationInfo.inCity == true) {
-                this.inCityDetection = 'In';
+                this.inCityDetection = 'At';
             } else if (this.locationInfo != null && this.locationInfo.inCity == false) {
                 this.inCityDetection = 'Near';
             } else {
@@ -384,7 +370,7 @@ class RichPresenceManager {
             }
 
             if (this.locationInfo && this.inCityDetection && this.locationInfo.location && this.locationInfo.location != null) {
-                activity.state += util.format(' | %s %s', this.inCityDetection, this.locationInfo.location);
+                activity.state += util.format(' - %s %s', this.inCityDetection, this.locationInfo.location);
             }
 
             if (argv.logallactivity) {
@@ -424,6 +410,31 @@ class RichPresenceManager {
 
     isAts(data) {
         return data.telemetry.game.gameID == config.constants.ats;
+    }
+
+    getSpeedUnit(isAts) {
+
+        if (isAts)
+            return config.mphString;
+
+        if (clientConfiguration.configuration.distanceUnit == config.constants.km)
+            return config.kphString;
+        else
+            return config.mphString;
+    }
+
+    calculateSpeed(value, isAts) {
+
+        value = value * config.constants.speedMultiplierValue;
+
+        if (isAts) {
+            return Math.round(value * config.kmToMilesConversion);
+        } else {
+            if (clientConfiguration.configuration.distanceUnit == config.constants.km)
+                return Math.round(value);
+            else
+                return Math.round(value * config.kmToMilesConversion);
+        }
     }
 
     getDistanceUnit(isAts) {
