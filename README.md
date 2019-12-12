@@ -3,7 +3,7 @@
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.8.3
+## Version 2.8.4
 
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
@@ -24,7 +24,10 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
-### Update 2.8.3
+### Update 2.8.4
+ - Added International truck brand to support list (or as SCS calls it, intnational..)
+ - Fixed version number is large image hover text
+### Update 2.8.88
  - Added Speed again (When engine is turned on)
  - Removed duplicate functions
  - Added current vehicle info when doing a delivery

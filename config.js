@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.83
+// VIRTUAL TRUCKER RICH PRESENCE 2.84
 
 const packageInfo = require('./package.json');
 
@@ -35,6 +35,7 @@ module.exports = {
         'daf',
         'freightliner',
         'international',
+        'intnational',
         'iveco',
         'kamaz',
         'kenworth',

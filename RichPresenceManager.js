@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.83
+// VIRTUAL TRUCKER RICH PRESENCE 2.84
 
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
@@ -348,7 +348,7 @@ class RichPresenceManager {
                 activity.details += util.format(` at ${this.calculateSpeed(speed, this.isAts(data))}${this.getSpeedUnit(this.isAts(data))}`);
             }
 
-            activity.largeImageText = `VT-RPC v2.8.1`;
+            activity.largeImageText = `VT-RPC v2.8.4`;
             activity.largeImageKey = this.getLargeImageKey(data);
 
             if (this.mpInfo != null && this.mpInfo.online != false) {

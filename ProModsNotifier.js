@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.83
+// VIRTUAL TRUCKER RICH PRESENCE 2.84
 
 const notifier = require('node-notifier');
 const config = require('./config');
