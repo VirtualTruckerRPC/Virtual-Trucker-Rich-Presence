@@ -1,7 +1,7 @@
 #include <idp.iss>
 
 #define MyAppName "Virtual Trucker Rich Presence"
-#define MyAppVersion "2.8.4"
+#define MyAppVersion "2.8.5"
 #define MyAppPublisher "Virtual Trucker Rich Presence"
 #define MyAppURL "https://vtrpc.live"
 #define MyAppExeName "VirtualTruckerRichPresence.exe"
@@ -68,8 +68,8 @@ Source: "..\assets\vtrpc.ico"; DestDir: "{app}\assets"; Flags: ignoreversion;
 
 [Icons]
 Name: "{commonstartup}\{#MyAppName}"; Filename: "{sys}\cscript.exe"; Parameters: """{app}\{#RunHiddenVbs}"""; Tasks:StartMenuEntry;
-Name: "{group}\Start or Reboot VT-RPC"; Filename: "{app}\{#RebootVTRPC}";
-Name: "{group}\Uninstall VT-RPC"; Filename: "{uninstallexe}";
+Name: "{group}\Reboot VTRPC"; Filename: "{app}\{#RebootVTRPC}";
+Name: "{group}\Uninstall VTRPC"; Filename: "{uninstallexe}";
 
 [Tasks]
 Name: "StartMenuEntry" ; Description: "Start {#MyAppName} when Windows starts (Recommended)" ; GroupDescription: "Windows Startup"; MinVersion: 4,4;
@@ -98,7 +98,7 @@ begin
         idpClearFiles;
 
         if IsComponentSelected('etcars') then
-            idpAddFile('https://etcars.menzelstudios.com/downloads/ETCARSx64.exe', ExpandConstant('{localappdata}\Temp\ETCARSx64.exe'));
+            idpAddFile('https://etcars.jammerxd.com/downloads/ETCARSx64.exe', ExpandConstant('{localappdata}\Temp\ETCARSx64.exe'));
 
         idpDownloadAfter(wpReady);
   end;

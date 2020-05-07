@@ -1,5 +1,5 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.84
-
+// VIRTUAL TRUCKER RICH PRESENCE
+const packageInfo = require('./package.json');
 const DiscordRPC = require('discord-rpc');
 var now = require("date-now")
 var ETCarsClient = require('etcars-node-client');
@@ -51,7 +51,7 @@ class RichPresenceManager {
         this.logger.info(JSON.stringify(clientConfiguration));
     }
 
-    // INITIALIZATION OF VT-RPC //
+    // INITIALIZATION OF VTRPC //
     init() {
         this.bindETCarsEvents();
         this.etcars.connect();
@@ -124,7 +124,7 @@ class RichPresenceManager {
                     if (instance.rpcReady) {
 
                         // checking if playing in multiplayer and loading online state, server and position
-                        if (instance.checkIfMultiplayer(data) && instance.mpInfo == null) {
+                        if (instance.checkIfMultiplayer(data) && instance.mpInfo == null && !instance.TRUCKYERROR) {
                             instance.logger.info('Multiplayer detected');
                             instance.startMPChecker();
                             instance.checkMpInfo();
@@ -217,44 +217,45 @@ class RichPresenceManager {
             var url = util.format('https://api.truckyapp.com/v1/richpresence/playerInfo?query=%s', this.lastData.telemetry.user.steamID);
 
             //console.log(url);
-            fetch(url).then((body) => {
+            fetch(url, {headers: { 'User-Agent':  `VTRPC v${packageInfo.version}` }}).then((body) => {
                 return body.json()
             }).then((json) => {
 
                 if (!json.error) {
-                    try {
-                        var response = json.response;
-                        if (response.onlineState.online) {
-                            instance.mpInfo = {
-                                online: true,
-                                server: response.onlineState.serverDetails,
-                                apiserverid: response.onlineState.serverDetails.apiserverid,
-                                playerid: response.onlineState.p_id,
-                                mod: response.onlineState.serverDetails.mod
-                            };
-                            instance.locationInfo = {
-                                location: response.onlineState.location.poi.realName,
-                                inCity: response.onlineState.location.area
-                            }
-                        } else {
-                            instance.mpInfo = {
-                                online: false,
-                                server: false,
-                                apiserverid: false,
-                                playerid: false,
-                                mod: false
-                            }
-                            instance.locationInfo = {
-                                location: false,
-                                inCity: false
-                            };
+                    var response = json.response;
+
+                    if (response.onlineState.online) {
+                        instance.mpInfo = {
+                            online: true,
+                            server: response.onlineState.serverDetails,
+                            apiserverid: response.onlineState.serverDetails.apiserverid,
+                            playerid: response.onlineState.p_id,
+                            mod: response.onlineState.serverDetails.mod
                         };
-                    }
-                    catch (error) {
-                        instance.logger.error(error);
-                    }
+                        instance.locationInfo = {
+                            location: response.onlineState.location.poi.realName,
+                            inCity: response.onlineState.location.area
+                        }
+                    } else {
+                        instance.mpInfo = {
+                            online: false,
+                            server: false,
+                            apiserverid: false,
+                            playerid: false,
+                            mod: false
+                        }
+                        instance.locationInfo = {
+                            location: false,
+                            inCity: false
+                        };
+                        instance.TRUCKYERROR = false;
+                    };
                 } else {
                     instance.mpInfo = null;
+                    instance.TRUCKYERROR = true;
+                    this.logger.info('Trucky API is currently having issues - MP Checker has been stopped.');
+                    instance.resetMPChecker();
+                    instance.resetLocationChecker();
                 }
             });
         }
@@ -274,16 +275,18 @@ class RichPresenceManager {
                 var url = util.format('https://api.truckyapp.com/v2/map/%s/resolve?x=%s&y=%s', this.lastData.telemetry.game.gameID, this.lastData.telemetry.truck.worldPlacement.x, this.lastData.telemetry.truck.worldPlacement.z);
         
                 //console.log(url);
-                fetch(url).then((body) => {
+                fetch(url, {headers: { 'User-Agent':  `VTRPC v${packageInfo.version}` }}).then((body) => {
                     return body.json()
                 }).then((json) => {
             
                     if (!json.error) {
+                        var message = json.message;
                         var response = json.response;
-                            instance.locationInfo = {
-                                location: response.poi.realName,
-                                inCity: response.area,
-                            };
+    
+                        instance.locationInfo = {
+                            location: response.poi.realName,
+                            inCity: response.area,
+                        };
                     } else {
                         instance.locationInfo = {
                             location: false,
@@ -297,6 +300,11 @@ class RichPresenceManager {
                 location: false,
                 inCity: null,
             };
+
+            instance.TRUCKYERROR = true;
+            this.logger.info('Trucky API is currently having issues - Location Checker has been stopped.');
+            instance.resetMPChecker();
+            instance.resetLocationChecker();
         }
     }
 
@@ -317,7 +325,6 @@ class RichPresenceManager {
                 
             activity.smallImageText = `${data.telemetry.truck.make} ${data.telemetry.truck.model} - ${this.calculateDistance(data.telemetry.truck.odometer, this.isAts(data))} ${this.getDistanceUnit(this.isAts(data))}`;
 
-            
             if(!this.gameLoading) {
                 if (config.supportedBrands.includes(data.telemetry.truck.makeID.toLowerCase())) {
                 activity.smallImageKey = `${config.constants.brandPrefix}${data.telemetry.truck.makeID}`;
@@ -348,14 +355,14 @@ class RichPresenceManager {
                 activity.details += util.format(` at ${this.calculateSpeed(speed, this.isAts(data))}${this.getSpeedUnit(this.isAts(data))}`);
             }
 
-            activity.largeImageText = `VT-RPC v2.8.4`;
+            activity.largeImageText = `VTRPC v${packageInfo.version}`;
             activity.largeImageKey = this.getLargeImageKey(data);
 
             if (this.mpInfo != null && this.mpInfo.online != false) {
                 activity.state += util.format('🌐 %s', this.mpInfo.server.name);
                 activity.largeImageText += util.format(' | ID: %s', this.mpInfo.playerid)
             } else if (data.telemetry.game.isMultiplayer == true) {
-                activity.state = `🌐 TruckersMP`;
+                activity.state = `🌐 Multiplayer`;
             } else {
                 activity.state = '🌐 Singleplayer';
             }

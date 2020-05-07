@@ -65,7 +65,7 @@ release
 output
 
 # VTRPC VSCode Workspace
-VT-RPC.code-workspace
+VTRPC.code-workspace
 
 # VTRPC .vscode & .vs
 .vscode/

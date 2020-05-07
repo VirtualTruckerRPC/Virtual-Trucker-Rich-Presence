@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.84
+// VIRTUAL TRUCKER RICH PRESENCE
 
 var fetch = require('node-fetch');
 const notifier = require('node-notifier');
@@ -34,7 +34,7 @@ class UpdateNotifier {
                         sound: 'Notification.Reminder',
                         wait: true,
                         open: config.latestReleasePage,
-                        appID: `VT-RPC v${packageInfo.version}`, 
+                        appID: `VTRPC v${packageInfo.version}`, 
                         button1: 'Update',
                         button2: 'Ignore',
                         

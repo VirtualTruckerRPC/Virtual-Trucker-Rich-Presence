@@ -1,9 +1,14 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.84
+// VIRTUAL TRUCKER RICH PRESENCE
 
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
 const argv = require('yargs').argv
+var dateFormat = require('dateformat');
+
+
+var dateNow = new Date();
+var dateStamp = dateFormat(dateNow, "yyyy-mm-dd HH-MM-ss");
 
 module.exports = class LogManager {
     constructor() {
@@ -11,7 +16,7 @@ module.exports = class LogManager {
 
         this.logDir = '';
         this.logFilePath = '';
-        this.logFileName = 'vtrpc.log';
+        this.logFileName = util.format('%s.log', dateStamp)
 
         this.checkLogDirectory();
     }
@@ -50,7 +55,9 @@ module.exports = class LogManager {
     }
 
     logLine(level, message) {
-        return util.format('%s - %s - %s\n', new Date().toISOString(), level, typeof message === 'object' ? JSON.stringify(message) : message);
+        var dateTIME = new Date();
+        var dateLOG = dateFormat(dateTIME, "yyyy-mm-dd HH-MM-ss-L");
+        return util.format('%s - %s - %s\n', dateLOG, level, typeof message === 'object' ? JSON.stringify(message) : message);
     }
 
     info(message) {

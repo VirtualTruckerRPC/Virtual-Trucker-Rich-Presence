@@ -3,8 +3,17 @@
 </div>
 
 # Virtual Trucker Rich Presence
-## Version 2.8.4
+## Version 2.8.5
 
+# VTRPC NODEJS HAS BEEN DEPRECTATED. PLEASE USE TRUCKY OVERLAY!
+## Trucky Overlay Edition
+Want to make things even easier? Just install Trucky Overlayat https://truckyapp.com/overlay and VTRPC will be included!
+
+### Important message
+Any user found abusing Trucky API with VTRPC will be held accountable for any issues, and will most likely be banned from using Trucky API is the future.
+VTRPC is a tool for rich presence and abusing API will not be tolerated!
+
+###  
 An easy tool to let others see your current job, truck, etc. using Discord Rich Presence!  
 Here's our Discord server for support: https://discord.gg/Zt49WDH  
 
@@ -15,7 +24,7 @@ THIS VERSION INCLUDES ETCARS 0.15.386, YOU MUST DO A FULL INSTALL FOR THIS TO WO
 * TruckersMP has their own Rich Presence which needs to be disabled in MP Settings!
 * Due to a few problems with previous ETCARS, you will need to install ETCARS 0.15.386 from our installer.
 * Promods is only supported on MP or via the developer argument
-* IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VT-RPC!
+* IF YOU HAVE ETCARS INSTALLED, PLEASE REINSTALL IT WITH ONE INCLUDED WITH VTRPC!
 
 Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **TruckersMP**.  
 **Rich presence example on Single Player**  
@@ -24,39 +33,15 @@ Supports **Euro Truck Simulator 2**, **American Truck Simulator** and **Truckers
 ![Rich presence example on Multiplayer](https://i.sgtbrds.tk/of86i.png)  
 
 ## Changelog
-### Update 2.8.4
- - Added International truck brand to support list (or as SCS calls it, intnational..)
- - Fixed version number is large image hover text
-### Update 2.8.88
- - Added Speed again (When engine is turned on)
- - Removed duplicate functions
- - Added current vehicle info when doing a delivery
- - Changed "In (CITY)" to "At (CITY)"
- - Other minor fixes
- - Updated Node Packages
- - Changed Node-Notifier (snoreToast & notifu64) files in .iss script
-### Update 2.8.2
- - Fixed multiplayer "undefined" error when game is loading
-### Update 2.8.1
- - No longer shows generic truck icon when game is loading
- - Better game loading detection and status (code)
- - Updated node packages
- - Now using NodeJS version 12.13.0
- - Removed Speed & Server Stats
- - Removed " | ProMods" text
- - Removed MP Server Stats Checker
- - Removed Job Income from Large Image Hover
- - Removed Night image(s) due to technical issues
- - Moved most of code to prevent issues
- - Removed un-needed functions
- - Removed un-needed node packages
-
-## Known Issues:
- - Memory leaking (Highly rare)
- - VT-RPC crashing randomly (reboot vtrpc to fix)
- - VT-RPC status freezing on discord (reboot vtrpc to fix)
- - After a while of being in-game, VT-RPC info may be delayed on discord
- - VT-RPC not displaying on game launch (reboot vtrpc to fix)
+### Update 2.8.5 - URGENT UPDATE
+ - Added user-agent to Trucky API requests
+ - Increased timer for trucky api requests
+ - Updated ETCars download server for installer
+ - Fixed many security vulnerabilities and updated packages
+ - Now using newer NodeJS LTS version
+ - Added Trucky API fallback, if API is having issues the checkers will be stopped
+ - New VTRPC logging method added
+ - All previous versions of VTRPC will be removed!
 
 ## Use in end user environment
 * Install Virtual Trucker Rich Presence using a release installation package from [Releases Page](https://github.com/VirtualTruckerRPC/Virtual-Trucker-Rich-Presence/releases) .
@@ -67,12 +52,12 @@ Take a look to [User Guide](UserGuide.md) for further details.
 But here is the most important information:  
 
 REQUIRED PROGRAMS:  
-* ETCARS 0.15.386 - https://etcars.menzelstudios.com/
-* NodeJS 10.9.0 - https://nodejs.org/download/release/v10.9.0/node-v10.9.0-x64.msi  
+* ETCARS 0.15.386 - https://etcars.jammerxd.com/
+* NodeJS - https://nodejs.org/  
 * Git - https://git-scm.com
 
 1. Install and download the required programs.   
-3. Open cmd/powershell by holding shift while right clicking inside the VT-RPC directory.  
+3. Open cmd/powershell by holding shift while right clicking inside the VTRPC directory.  
 4. Install the required node modules by typing "npm i" in PS/CMD.  
 5. Start the rich presence by typing "node index.js --dev". (--dev not required but recommended)  
 6. Start ETS2/ATS.  
@@ -89,28 +74,16 @@ REQUIRED PROGRAMS:
 * Run `iscc .\setup\InnoSetupScript.iss` (Add to PATH variable env `C:\Program Files (x86)\Inno Setup 5`)
 * Installation package will be written in `setup\Output\VirtualTruckerRichPresenceSetup.exe`
 
-
-
-### Why there is a VBScript in this project?
+### Why is there a VBScript in this project?
 We need `RunHidden.vbs` to run a packaged node.js app windowless in windows. So, the application is launched from that vbscript.
 
 ## Logging
-Log file `vtrpc.log` is written in:
+Log files are written in:
 * Windows: `%appdata%\VirtualTruckerRichPresence\`
 * Linux: `/var/local/VirtualTruckerRichPresence/`
 * MacOS: `/home/Library/Preferences/VirtualTruckerRichPresence/`
 
-## Startup parameters & Auto Run Scripts
-### Auto Run Scripts
-This is for those who just want to run it with 1 click. All scripts are located in "auto run scripts" folder  
-* Run as dev : Runs with --dev argument
-* Run as standard : Runs as standard application
-* Run with ETCars data : Runs with --logetcarsdata argument (Testing purposes)
-* Run with Discord data : Runs with --logallactivity argument (Testing purposes)
-* Run with ProMods mode : Runs with --promods & --dev arguments (Testing purposes)
-#### IF YOU HAPPEN TO RUN INTO ISSUES OR IT RANDOMLY CLOSES THE WINDOW, RUN MANUAL WITH ARGUMENTS!
-
-### Manual Startup Arguments
+## Startup parameters
 * --dev : enable verbose development logging and dev environment behaviour
 * --promods : enables promods mode, doesn't do much but change images
 * --logetcarsdata : prints in console every ETCARS data received
@@ -118,15 +91,9 @@ This is for those who just want to run it with 1 click. All scripts are located 
 * --clientConfiguration : specify clientconfiguration.json path
 
 
-# Credits To Staff
-### Current Staff
+# Credits to everyone who worked on this project
 SgtBreadStick: Coding, Images, Guides, Website Developer.  
 jammerxd: ETCARS plugin, compatibility with ETCARS.  
+dowmeister: ETCARS plugin, coding, Trucky & Trucky API, Trucky Overlay.  
 Cody™: Bot Development.  
-Heyhococo: Testing, Mac Testing.  
-Minion_Josh: Testing.
-
-### Retired Staff
 Lasse: Initial project, coding.  
-dowmeister: ETCARS plugin, coding, Trucky & Trucky API.  
-Rein: Previous Images.

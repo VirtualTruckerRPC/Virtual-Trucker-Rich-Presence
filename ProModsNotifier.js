@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.84
+// VIRTUAL TRUCKER RICH PRESENCE
 
 const notifier = require('node-notifier');
 const config = require('./config');
@@ -22,7 +22,7 @@ class ProModsNotifier {
                 icon: (__dirname, 'assets/vtrpc.ico'),
                 sound: true,
                 wait: true,
-                appID: `VT-RPC v${packageInfo.version}`, 
+                appID: `VTRPC v${packageInfo.version}`, 
             });
         }
     }

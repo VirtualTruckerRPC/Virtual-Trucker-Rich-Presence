@@ -1,4 +1,4 @@
-// VIRTUAL TRUCKER RICH PRESENCE 2.84
+// VIRTUAL TRUCKER RICH PRESENCE
 
 const packageInfo = require('./package.json');
 
@@ -9,8 +9,8 @@ module.exports = {
     },
     version: `Virtual Trucker Rich Presence ${packageInfo.version}`,
     kmToMilesConversion: 0.62,
-    mpCheckerIntervalMilliseconds: 1.5 * 60 * 1000,
-    locationCheckerIntervalMilliseconds: 1 * 60 * 1000,
+    mpCheckerIntervalMilliseconds: 5 * 60 * 1000,
+    locationCheckerIntervalMilliseconds: 2.5 * 60 * 1000,
     kmString: 'KM',
     milesString: 'Mi',
     kphString: 'km/h',
